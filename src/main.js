@@ -4,6 +4,7 @@ import './styles/deck.css';
 import './styles/code.css';
 import './styles/components.css';
 import './styles/slides.css';
+import './styles/demos.css';
 import './slides/monitors.css';
 import { Deck } from './deck/Deck.js';
 import { slides } from './slides/index.js';

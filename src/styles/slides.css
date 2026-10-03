@@ -264,10 +264,10 @@ b { font-weight: 600; }
 .recap-list p { margin: 0; font-size: 1.12cqw; line-height: 1.45; }
 
 /* ================= 27 vocabulary ================= */
-.vocab { position: absolute; top: 18.5cqh; left: 3cqw; right: 3cqw; bottom: 6.5cqh; display: grid; grid-template-columns: repeat(3, 1fr); align-content: start; gap: 0 2.2cqw; margin: 0; overflow: auto; }
-.vocab > div { padding: 1.5cqh 0; border-top: 1px solid var(--hair); }
-.vocab dt { margin-bottom: 0.5cqh; font: 500 0.98cqw/1.2 var(--mono); color: var(--accent); }
-.vocab dd { margin: 0; font-size: 0.96cqw; line-height: 1.42; color: var(--ink); }
+.vocab { position: absolute; top: 18.5cqh; left: 3cqw; right: 3cqw; bottom: 6.5cqh; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); align-content: start; gap: 0 2.2cqw; margin: 0; overflow: auto; }
+.vocab > div { padding: 1.2cqh 0; border-top: 1px solid var(--hair); }
+.vocab dt { margin-bottom: 0.45cqh; font: 500 0.9cqw/1.2 var(--mono); color: var(--accent); }
+.vocab dd { margin: 0; font-size: 0.86cqw; line-height: 1.4; color: var(--ink); }
 
 /* ================= 28 practice ================= */
 .practice { position: absolute; top: 20cqh; left: 3cqw; right: 3cqw; display: grid; grid-template-columns: 1fr 1.05fr; gap: 3cqw; align-items: start; }

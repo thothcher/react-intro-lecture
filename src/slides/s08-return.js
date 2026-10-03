@@ -15,12 +15,19 @@ const VOCAB = [
   ['Declarative', 'Describing what the UI should look like for a given state, not the steps to change it.'],
   ['Imperative', 'Writing the DOM changes step by step yourself (querySelector, textContent…).'],
   ['key', 'A stable id for list items, so React can tell them apart between renders.'],
+  ['Reconciliation', 'Comparing the new UI description with the previous one and changing only the differences in the DOM.'],
+  ['XSS', 'Cross-site scripting: injected HTML/JS that runs inside your page. React escapes text by default.'],
   ['Single source of truth', 'Each piece of data lives in one place; everything else reads from it.'],
   ['Routing', 'Mapping a URL to the content that should be shown.'],
   ['SPA', 'Single-page application: one HTML page; content changes without full page reloads.'],
   ['Client-side routing', 'Changing the URL and view in the browser (History API) without asking the server for a new page.'],
   ['Library vs framework', 'Your code calls a library (React); a framework calls your code and sets the structure (Angular).'],
   ['Meta-framework', 'A framework built on top of a library, adding routing, server rendering and build tools (Next.js).'],
+  ['CSR', 'Client-side rendering: the browser builds the page with JavaScript.'],
+  ['SSR', 'Server-side rendering: the server builds the HTML on every request.'],
+  ['SSG', 'Static site generation: every page is built once, at build time.'],
+  ['ISR', 'Incremental static regeneration: static pages rebuilt in the background after a set time.'],
+  ['Hydration', 'React attaching state and event handlers to HTML that was already rendered on the server.'],
 ];
 
 export default [
@@ -28,7 +35,7 @@ export default [
     id: 'recap',
     stage: STAGE,
     title: 'რა შეგიძლიათ ახლა',
-    time: '43:00 – 44:00 (1 წთ)',
+    time: '58:00 – 59:00 (1 წთ)',
     notes: `
       <p>გავიაროთ მოგზაურობა უკან: თითოეული ხაზი ერთ ეტაპს შეესაბამება (მარცხნივ ეტაპის ნომერი).</p>
       <p>სთხოვეთ ერთ-ერთ სტუდენტს, საკუთარი სიტყვებით ახსნას <b>რატომ</b> არ განახლდა ეკრანი "იპოვე ბაგი" სლაიდზე.</p>`,
@@ -40,7 +47,9 @@ export default [
         <li><span class="mono">06 / TRIALS · 1</span><p>დაყოთ UI კომპონენტებად და გადასცეთ მონაცემი <span class="mono">props</span>-ით</p></li>
         <li><span class="mono">06 / TRIALS · 2</span><p>შეინახოთ მდგომარეობა <span class="mono">useState</span>-ით და დაეყრდნოთ re-render-ს</p></li>
         <li><span class="mono">06 / TRIALS · 3</span><p>API-ს მონაცემი <span class="mono">.map()</span>-ით აქციოთ კომპონენტებად — <span class="mono">key</span>-ით</p></li>
+        <li><span class="mono">06 / TRIALS · 4–6</span><p>ახსნათ reconciliation, XSS-ისგან ავტომატური დაცვა და listener-ების გასუფთავება</p></li>
         <li><span class="mono">07 / ORDEAL</span><p>იპოვოთ state-ის მუტაციის და დაკარგული <span class="mono">key</span>-ის ბაგები</p></li>
+        <li><span class="mono">08 / RETURN</span><p>გაარჩიოთ CSR, SSR, SSG და ISR — სად იქმნება HTML და რას ნიშნავს ეს SEO-სთვის</p></li>
       </ol>`,
   },
 
@@ -48,7 +57,7 @@ export default [
     id: 'vocabulary',
     stage: STAGE,
     title: 'ლექსიკონი',
-    time: '44:00 – 45:30 (1.5 წთ)',
+    time: '59:00 – 60:30 (1.5 წთ)',
     notes: `
       <p>ყველა ახალი ტერმინი ერთ გვერდზე, მოკლე ინგლისური განმარტებით — ასე შეხვდებიან მათ დოკუმენტაციაში (react.dev).</p>
       <p>შესთავაზეთ სტუდენტებს სლაიდის ფოტოს გადაღება.</p>`,
@@ -63,7 +72,7 @@ export default [
     id: 'practice',
     stage: STAGE,
     title: 'პრაქტიკა — 45 წუთი',
-    time: '45:30 – 46:00 (0.5 წთ) · შემდეგ შესვენება 10 წთ (B) · შემდეგ პრაქტიკა 45 წთ',
+    time: '60:30 – 61:00 (0.5 წთ) · შემდეგ შესვენება 10 წთ (B) · შემდეგ პრაქტიკა 45 წთ',
     notes: `
       <p>აქ ჩართეთ <b>ყავის შესვენება</b>: B ან ზედა მარჯვენა კუთხის ხატულა (10:00).</p>
       <p>პრაქტიკის რიტმი: 5 / 10 / 10 / 10 / 10 წთ. ყოველი ეტაპის ბოლოს — ერთი სტუდენტის ეკრანი პროექტორზე.</p>

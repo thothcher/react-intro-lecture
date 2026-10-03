@@ -12,7 +12,7 @@ export default [
     time: '0:00 – 1:00 (1 წთ)',
     notes: `
       <p>მისალმება. დღეს ვაჩვენებთ <b>რეალურ პრობლემას</b> vanilla JS-ში და როგორ წყვეტს მას React.</p>
-      <p>სტრუქტურა: ~45 წთ თეორია (Hero's Journey — ზედა მარცხენა კუთხეში ეტაპი ჩანს), 10 წთ შესვენება, ~45 წთ პრაქტიკა.</p>
+      <p>სტრუქტურა: ~60 წთ თეორია (Hero's Journey — ზედა მარცხენა კუთხეში ეტაპი ჩანს), 10 წთ შესვენება, ~45 წთ პრაქტიკა.</p>
       <p>მთავარი იდეა ერთი წინადადებით: <b>"როცა UI იზრდება, ხელით DOM-ის მართვა ვეღარ მასშტაბირდება."</b></p>`,
     html: () => `
       <div class="title-slide">
@@ -21,7 +21,7 @@ export default [
           <h1>Vanilla JS <span class="title-arrow">${icons.arrow}</span> React</h1>
           <p class="lead">ერთი რესტორანი, ორი მიდგომა — და მომენტი, როცა React აუცილებელი ხდება.</p>
           <dl class="meta">
-            <div><dt class="mono">თეორია</dt><dd>~45 წთ</dd></div>
+            <div><dt class="mono">თეორია</dt><dd>~60 წთ</dd></div>
             <div><dt class="mono">შესვენება</dt><dd>10 წთ</dd></div>
             <div><dt class="mono">პრაქტიკა</dt><dd>~45 წთ</dd></div>
           </dl>

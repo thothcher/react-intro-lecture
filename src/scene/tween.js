@@ -65,4 +65,4 @@ export class Tweens {
   clear() { this.list.forEach((t) => t.resolve()); this.list = []; }
 }
 
-export const wait = (ms) => new Promise((r) => setTimeout(r, reducedMotion() ? 0 : ms));
+export const wait = (ms) => new Promise((r) => setTimeout(r, reducedMotion() ? 0 : ms * (globalThis.__timeScale || 1)));
