@@ -1,0 +1,87 @@
+/* ---------- slides container + transitions ---------- */
+.slides { position: absolute; inset: 0; }
+
+.slide {
+  position: absolute;
+  inset: 0;
+  padding: 6.4cqh 3cqw 6.2cqh;
+  opacity: 0;
+  transform: translateX(calc(var(--dir, 1) * 1.2cqw));
+  transition: opacity 450ms var(--ease-out), transform 450ms var(--ease-out);
+  overflow: hidden;
+}
+.slide.is-active { opacity: 1; transform: none; }
+.slide.is-leaving { opacity: 0; transform: translateX(calc(var(--dir, 1) * -1.2cqw)); pointer-events: none; }
+.slide.no-anim { transition: none; }
+.slide.mon { padding: 0; } /* the 3D slide lays out its own overlay */
+
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-leaving { transform: none; transition: opacity 1ms; }
+}
+
+/* ---------- chrome: progress, stage label, counter ---------- */
+.chrome { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+.progress { position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--hair); }
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--navy);
+  transform-origin: left center;
+  transition: transform var(--t-slow) var(--ease-out);
+}
+.counter {
+  position: absolute;
+  right: 3cqw;
+  bottom: 2.4cqh;
+  font: 500 0.78cqw/1 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.stage[data-tone='dark'] .stage-label,
+.stage[data-tone='dark'] .counter { color: rgba(246, 247, 249, 0.72); }
+.stage[data-tone='dark'] .stage-label::after { background: rgba(246, 247, 249, 0.35); }
+.stage[data-tone='dark'] .progress { background: rgba(246, 247, 249, 0.18); }
+.stage[data-tone='dark'] .progress span { background: #F6F7F9; }
+
+/* ---------- keyboard help (?) ---------- */
+.help {
+  position: absolute;
+  right: 3cqw;
+  bottom: 6cqh;
+  width: 30cqw;
+  padding: 1.6cqw;
+  background: var(--surface);
+  border: 1px solid var(--hair-strong);
+  box-shadow: 0 2cqh 5cqh rgba(11, 27, 58, 0.12);
+  pointer-events: auto;
+}
+.help-title { margin: 0 0 1cqh; font-size: 0.72cqw; letter-spacing: 0.14em; color: var(--accent); }
+.help dl { display: grid; grid-template-columns: auto 1fr; gap: 0.7cqh 1.2cqw; margin: 0; font-size: 0.8cqw; }
+.help dt { font-family: var(--mono); color: var(--ink); }
+.help dd { margin: 0; color: var(--muted); }
+
+/* ---------- speaker notes on the same screen (Shift+S) ---------- */
+.notes-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  max-height: 42cqh;
+  overflow: auto;
+  z-index: 40;
+  background: var(--navy);
+  color: #F6F7F9;
+  padding: 1.6cqh 3cqw 2.4cqh;
+  font: 400 1cqw/1.55 var(--font);
+  scrollbar-color: #F6F7F9 transparent;
+}
+.notes-overlay::-webkit-scrollbar-thumb { background: #F6F7F9; }
+.notes-head { display: flex; align-items: baseline; gap: 1.2cqw; margin-bottom: 1cqh; padding-bottom: 1cqh; border-bottom: 1px solid rgba(246, 247, 249, 0.2); }
+.notes-head .mono { font-size: 0.78cqw; }
+.notes-stage { color: #E3A497; letter-spacing: 0.12em; }
+.notes-time { margin-left: auto; color: rgba(246, 247, 249, 0.7); }
+.notes-body p { margin: 0 0 0.6em; }
+.notes-body b { color: #F2C6BC; }
+.notes-body code { font: 500 0.9em var(--mono); background: rgba(246, 247, 249, 0.1); padding: 0 0.25em; }
+
+.slide-error { position: absolute; left: 3cqw; bottom: 8cqh; color: var(--accent); font-size: 0.8cqw; }

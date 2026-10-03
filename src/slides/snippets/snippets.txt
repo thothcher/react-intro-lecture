@@ -1,0 +1,249 @@
+=== s3-html markup
+<header class="site-header" id="header"></header>
+<main id="app" tabindex="-1"></main>
+<footer class="site-footer">…</footer>
+=== s3-css css
+.btn-primary {
+  background: var(--brick-ember);
+  color: #fff;
+}
+=== s3-js javascript
+const price = (n) =>
+  `${App.config.CURRENCY}${Number(n || 0).toFixed(2)}`;
+=== s3-dom javascript
+qtyEl.textContent = qty;
+grid.insertAdjacentHTML('beforeend', html);
+=== s3-fetch javascript
+fetch(url, {
+  headers: { 'X-API-KEY': API_KEY },
+});
+=== s5-nav markup
+<nav class="nav">
+  <a href="about.html">About</a>
+  <a href="menu.html">Menu</a>
+  <a href="cart.html">Cart</a>
+  <a href="profile.html">Profile</a>
+</nav>
+=== s6-forgot markup
+<!-- verify.html -->
+<nav class="nav">
+
+  <a href="menu.html">Menu</a>
+  <a href="cart.html">Cart</a>
+</nav>
+=== s6-typo markup
+<!-- reset.html -->
+<nav class="nav">
+  <a href="abuot.html">About</a>
+  <a href="menu.html">Menu</a>
+</nav>
+=== s6-active markup
+<!-- cart.html (copied from menu.html) -->
+<nav class="nav">
+  <a href="menu.html" class="active">Menu</a>
+  <a href="cart.html">Cart</a>
+</nav>
+=== s8-header javascript
+function renderHeader() {
+  const name = store.user?.firstName;
+  $header.innerHTML = `
+    <div class="header-inner">
+      <a class="brand" href="./">Trattoria</a>
+      <nav class="nav" aria-label="Main">
+        <a href="menu" data-nav="/menu">Menu</a>
+        <a href="cart" data-nav="/cart">Cart${store.cartCount
+          ? `<span class="count">${store.cartCount}</span>` : ''}</a>
+        <a href="profile" data-nav="/profile">${name ? ui.esc(name) : 'Profile'}</a>
+      </nav>
+    </div>`;
+  markActiveNav();
+}
+
+store.subscribe(renderHeader);
+=== s11-card jsx
+export default function ProductCard({ p, index = 0 }) {
+  const [add, busy] = useAddToCart();
+  return (
+    <article className="card">…</article>
+  );
+}
+
+// src/pages/Menu.jsx
+{items.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+=== s12-store jsx
+function Header() {
+  const { accessToken, user, cartCount } = useStore();
+  // …
+  <NavLink to="/cart" className="cart-link">
+    Cart{cartCount > 0 && <span className="count">{cartCount}</span>}
+  </NavLink>
+}
+=== s13-imperative javascript
+const badge = header.querySelector('.count');
+if (cartCount > 0) {
+  badge.textContent = cartCount;
+  badge.hidden = false;
+} else {
+  badge.hidden = true;
+}
+=== s13-declarative jsx
+{cartCount > 0 && (
+  <span className="count">{cartCount}</span>
+)}
+=== s14-routes jsx
+<Routes>
+  <Route element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="menu" element={<Menu />} />
+    <Route path="product/:id" element={<Product />} />
+    <Route path="cart" element={auth(<Cart />)} />
+    {/* … login, register, verify, forgot, reset */}
+  </Route>
+</Routes>
+=== s17-layout jsx
+<nav className={`nav ${open ? 'open' : ''}`} aria-label="Main">
+  <NavLink to="/about">About</NavLink>
+  <NavLink to="/menu">Menu</NavLink>
+  {/* … Cart, Profile, Sign out */}
+</nav>
+=== s17-app jsx
+<Route element={<Layout />}>
+  <Route index element={<Home />} />
+  <Route path="about" element={<About />} />
+  <Route path="menu" element={<Menu />} />
+=== s17-about jsx
+export default function About() {
+  return (
+    <div className="container">
+      <h1>About</h1>
+    </div>
+  );
+}
+=== s19-vanilla javascript
+function productCard(p, i = 0) {
+  return `
+    <article class="card" data-id="${p.id}">
+      <h3 class="card-title"><a href="product/${p.id}">${esc(p.name)}</a></h3>
+      <p class="card-desc">${esc(p.description)}</p>
+      <strong class="price">${price(p.price)}</strong>
+      <button class="btn btn-primary btn-sm" data-add="${p.id}">Add</button>
+    </article>`;
+}
+
+// js/app.js — the click is handled far away, on the whole document
+const addBtn = e.target.closest('[data-add]');
+if (addBtn) return ui.addToCart(Number(addBtn.dataset.add), 1, addBtn);
+=== s19-react jsx
+export default function ProductCard({ p, index = 0 }) {
+  const [add, busy] = useAddToCart();
+  return (
+    <article className="card">
+      <h3 className="card-title"><Link to={`/product/${p.id}`}>{p.name}</Link></h3>
+      <p className="card-desc">{p.description}</p>
+      <strong className="price">{price(p.price)}</strong>
+      <button className="btn btn-primary btn-sm" disabled={busy}
+        onClick={() => add(p.id, 1)}>Add</button>
+    </article>
+  );
+}
+=== s21-vanilla javascript
+let qty = 1;
+// …
+const qtyEl = root.querySelector('#qty');
+const totalEl = root.querySelector('#total');
+const onClick = async (e) => {
+  const step = e.target.closest('[data-step]');
+  if (step) {
+    qty = Math.min(99, Math.max(1, qty + Number(step.dataset.step)));
+    qtyEl.textContent = qty;
+    totalEl.textContent = ui.price(p.price * qty);
+  }
+};
+root.addEventListener('click', onClick);
+=== s21-react jsx
+const [qty, setQty] = useState(1);
+// …
+<button onClick={() => setQty((q) => Math.max(1, q - 1))}>−</button>
+<output>{qty}</output>
+<button onClick={() => setQty((q) => Math.min(99, q + 1))}>+</button>
+
+<button onClick={() => add(p.id, qty)}>
+  Add to cart · <span>{price(p.price * qty)}</span>
+</button>
+=== s23-vanilla javascript
+grid.innerHTML = ui.skeletonCards(6);
+try {
+  const res = await api.products({ ...toApi(filters), Page: page, Take: config.PAGE_SIZE });
+  const items = res.products || [];
+  grid.innerHTML = '';
+  grid.insertAdjacentHTML('beforeend',
+    items.map((p, i) => ui.productCard(p, i)).join(''));
+  if (!items.length) grid.innerHTML = ui.emptyState('No dishes found', '…');
+  moreBtn.hidden = !res.hasMore;
+} catch (err) {
+  grid.innerHTML = ui.errorState(err);
+}
+=== s23-react jsx
+api.products({ ...toApi(applied), Page: 1, Take: config.PAGE_SIZE })
+  .then((res) => setList({
+    items: res.products || [], hasMore: !!res.hasMore, loading: false,
+  }))
+  .catch((error) => setList((l) => ({ ...l, loading: false, error })));
+// …
+<div className="grid">
+  {loading && <SkeletonCards n={6} />}
+  {error && !loading && <ErrorState error={error} />}
+  {!loading && !error && !items.length && <EmptyState title="No dishes found" />}
+  {items.map((p, i) => <ProductCard key={p.id} p={p} index={i} />)}
+</div>
+=== s25-bug jsx
+function Menu() {
+  const [list, setList] = useState({ items: [], page: 1 });
+
+  const loadMore = async () => {
+    const page = list.page + 1;
+    const res = await api.products({ Page: page, Take: 12 });
+    list.items.push(...res.products);
+    list.page = page;
+    setList(list);
+  };
+
+  return (
+    <div className="grid">
+      {list.items.map((p) => <ProductCard p={p} />)}
+      <button onClick={loadMore}>Load more</button>
+    </div>
+  );
+}
+=== s25-fix jsx
+function Menu() {
+  const [list, setList] = useState({ items: [], page: 1 });
+
+  const loadMore = async () => {
+    const page = list.page + 1;
+    const res = await api.products({ Page: page, Take: 12 });
+    setList((l) => ({ items: [...l.items, ...res.products], page }));
+  };
+
+  return (
+    <div className="grid">
+      {list.items.map((p) => <ProductCard key={p.id} p={p} />)}
+      <button onClick={loadMore}>Load more</button>
+    </div>
+  );
+}
+=== s28-create bash
+npm create vite@latest my-restaurant -- --template react
+cd my-restaurant
+npm install
+npm run dev
+=== s28-fetch jsx
+const [categories, setCategories] = useState([]);
+
+useEffect(() => {
+  fetch('https://restaurantapi.stepacademy.ge/api/categories', {
+    headers: { 'X-API-KEY': API_KEY },
+  })
+    .then((res) => res.json())
+    .then((json) => setCategories(json.data));
+}, []);

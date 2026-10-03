@@ -1,0 +1,73 @@
+/* FiraGO covers Georgian + Latin in one file; JetBrains Mono for code and labels. woff2 only. */
+@font-face {
+  font-family: 'FiraGO';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/firago/files/firago-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'FiraGO';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/firago/files/firago-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'FiraGO';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/firago/files/firago-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'FiraGO';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/firago/files/firago-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../../node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+}
+:root {
+  /* palette */
+  --bg: #F6F7F9;
+  --surface: #FFFFFF;
+  --navy: #0B1B3A;
+  --ink: #0B1B3A;
+  --muted: #5B6577;
+  --faint: #8A93A3;
+  --hair: rgba(11, 27, 58, 0.14);
+  --hair-strong: rgba(11, 27, 58, 0.28);
+  --accent: #A4483A;            /* single muted accent (echoes the restaurant's brick red) */
+  --accent-soft: rgba(164, 72, 58, 0.10);
+
+  /* type */
+  --font: 'FiraGO', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', 'FiraGO', ui-monospace, monospace;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --t-fast: 200ms;
+  --t-mid: 400ms;
+  --t-slow: 600ms;
+
+  /* chamfer size for clipped corners */
+  --cut: 8px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --t-fast: 1ms; --t-mid: 1ms; --t-slow: 1ms; }
+}
