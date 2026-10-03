@@ -290,3 +290,38 @@ b { font-weight: 600; }
 .thanks-links dt { width: 5cqw; color: var(--faint); }
 .thanks-links dd { margin: 0; }
 .thanks-credits { margin: 3.4cqh 0 0; font-size: 0.7cqw; color: var(--faint); }
+
+/* ---------- 06 / TRIALS · JSX: abbreviation → build output → DOM ---------- */
+.jsx-title b { color: var(--accent); font-weight: inherit; }
+.jsx { position: absolute; top: 19.5cqh; left: 3cqw; right: 3cqw; display: grid; grid-template-columns: minmax(0, 1fr) 3.4cqw minmax(0, 1.25fr) 3.4cqw minmax(0, 1fr); column-gap: 0.5cqw; row-gap: 0.8cqh; }
+.jsx-head { display: flex; align-items: baseline; gap: 0.7cqw; min-width: 0; padding-bottom: 0.9cqh; border-bottom: 2px solid var(--navy); }
+.jsx-num { font-size: 0.72cqw; color: var(--accent); }
+.jsx-head b { font: 600 1.25cqw/1.2 var(--font); color: var(--ink); }
+.jsx-head small { margin-left: auto; overflow: hidden; font-size: 0.78cqw; color: var(--muted); white-space: nowrap; text-overflow: ellipsis; }
+.jsx-pipe { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; gap: 0.2cqh; padding-bottom: 0.5cqh; font-size: 0.58cqw; line-height: 1.2; text-align: center; color: var(--faint); transition: color var(--t-mid) var(--ease-out); }
+.jsx-pipe .ico, .jsx-arrow .ico { width: 1.4cqw; height: 1.4cqw; }
+.jsx-arrow { display: flex; align-items: center; justify-content: center; color: var(--hair-strong); transition: color var(--t-mid) var(--ease-out); }
+.jsx-pipe.is-on, .jsx-arrow.is-on { color: var(--accent); }
+.jsx-ex { grid-column: 1 / -1; display: flex; align-items: baseline; gap: 0.9cqw; margin: 1.6cqh 0 0.2cqh; font-size: 0.98cqw; color: var(--ink); }
+.jsx-ex .muted { font-size: 0.8cqw; }
+.jsx-slot { position: relative; display: flex; min-width: 0; outline: 1px dashed var(--hair-strong); outline-offset: -1px; }
+.jsx-slot .code { flex: 1; transition: opacity var(--t-mid) var(--ease-out), transform var(--t-mid) var(--ease-out); }
+.jsx-slot:not(.is-on) .code { opacity: 0; transform: translateX(-0.6cqw); }
+.jsx-mark { position: absolute; inset: 0; display: grid; place-items: center; font: 500 1.6cqw/1 var(--mono); color: var(--faint); pointer-events: none; transition: opacity var(--t-mid) var(--ease-out); }
+.jsx-slot.is-on .jsx-mark { opacity: 0; }
+.code--jsx .code-pre { padding: 1.1cqh 0; font-size: 0.74cqw; }
+.code--jsx .ln.is-hl { background: var(--accent-soft); }
+.code--jsx .ln.is-hl::before { background: var(--accent); }
+.jsx-cap { min-width: 0; margin: 0; font-size: 0.8cqw; line-height: 1.4; color: var(--muted); transition: opacity var(--t-mid) var(--ease-out); }
+.jsx-cap:not(.is-on) { opacity: 0; }
+.jsx-cap .mono { white-space: nowrap; }
+.jsx-quiz { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; gap: 1.4cqw; margin-top: 1.8cqh; padding: 1.6cqh 1.4cqw; background: var(--surface); border: 1px solid var(--hair-strong); border-left: 3px solid var(--accent); }
+.jsx-quiz:not(.is-on) { visibility: hidden; }
+.jsx-quiz.is-on { animation: enter 400ms var(--ease-out); }
+.jsx-quiz-tag { padding-top: 0.45cqh; font-size: 0.72cqw; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); }
+.jsx-quiz-q { margin: 0; font: 600 1.25cqw/1.35 var(--font); color: var(--ink); }
+.jsx-quiz-a { margin: 1cqh 0 0; font-size: 1cqw; line-height: 1.5; color: var(--ink); }
+.jsx-quiz-a:not(.is-on) { display: none; }
+.jsx-quiz-a.is-on { animation: enter 400ms var(--ease-out); }
+.jsx-quiz-hint { padding-top: 0.45cqh; font-size: 0.72cqw; color: var(--faint); }
+.jsx-quiz.is-answered .jsx-quiz-hint { visibility: hidden; }

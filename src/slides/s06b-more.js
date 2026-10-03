@@ -16,7 +16,7 @@ export default [
     id: 'trial-reconcile',
     stage: STAGE,
     title: 'Trial 4 — მხოლოდ ის, რაც შეიცვალა',
-    time: '40:00 – 42:30 (2.5 წთ)',
+    time: '43:00 – 45:30 (2.5 წთ)',
     notes: `
       <p>ორივე header <b>ნამდვილად</b> მუშაობს: მარცხნივ — <code>innerHTML</code> (ზუსტად ისე, როგორც ჩვენი <code>renderHeader()</code>), მარჯვნივ — ნამდვილი React კომპონენტი. ციფრებს <b>MutationObserver</b> ზომავს — ეს არ არის სიმულაცია.</p>
       <p>დააჭირეთ <b>+ კალათაში</b>: მარცხნივ წითლად ინათება მთელი ხე — 18 ელემენტი წაიშალა და თავიდან შეიქმნა. მარჯვნივ — მხოლოდ ერთი ტექსტი: "2" → "3".</p>
@@ -55,7 +55,7 @@ export default [
     id: 'trial-xss',
     stage: STAGE,
     title: 'Trial 5 — უსაფრთხოება ნაგულისხმევად',
-    time: '42:30 – 44:30 (2 წთ)',
+    time: '45:30 – 47:30 (2 წთ)',
     notes: `
       <p>სცენარი: API-დან მოვიდა პროდუქტი, რომლის სახელშიც ვიღაცამ HTML ჩაწერა. ეს <b>XSS</b>-ია (cross-site scripting).</p>
       <p>მარცხნივ — <code>innerHTML</code> esc()-ის გარეშე: ბრაუზერი სახელს HTML-ად კითხულობს და <code>onerror</code> სკრიპტი <b>ნამდვილად სრულდება</b> (აქ ის მხოლოდ პანელს აწითლებს, რეალურ თავდასხმაში token-ს მოიპარავდა).</p>
@@ -94,7 +94,7 @@ export default [
     id: 'trial-listeners',
     stage: STAGE,
     title: 'Trial 6 — event listener-ები: ვინ ასუფთავებს?',
-    time: '44:30 – 46:30 (2 წთ) · სურვილისამებრ',
+    time: '47:30 – 49:30 (2 წთ) · სურვილისამებრ',
     notes: `
       <p><b>რეალური ბაგი</b> ჩვენი vanilla ვერსიის აწყობიდან: SPA-ში <code>#app</code> კონტეინერი რჩება, გვერდები იცვლება. ყოველ ვიზიტზე პროდუქტის გვერდი <code>addEventListener</code>-ს იძახებდა, ძველი კი არ იშლებოდა.</p>
       <p>მარცხნივ (cleanup გამორთულია): Menu → Product → Menu → Product… ყოველი ვიზიტი კიდევ ერთ listener-ს ამატებს. მერე დააჭირეთ <b>+</b> — რაოდენობა 1-ით კი არა, <b>N-ით</b> იზრდება.</p>
@@ -134,7 +134,7 @@ export default [
     id: 'quiz-reconcile',
     stage: STAGE,
     title: 'Quiz: reconciliation',
-    time: '46:30 – 47:30 (1 წთ)',
+    time: '49:30 – 50:30 (1 წთ)',
     notes: '<p>სწორი: <b>B</b>. React ადარებს ახალ JSX-ს წინას და DOM-ში მხოლოდ განსხვავებას ცვლის — აქ ერთ ტექსტურ კვანძს. Trial 4-ში ეს MutationObserver-მა გაზომა: 1 ცვლილება 18-ის წინააღმდეგ.</p>',
     html: () => `${head('Quiz')}<div class="quiz-wrap" data-quiz></div>`,
     mount: (el) => mountQuiz(el.querySelector('[data-quiz]'), {
@@ -154,7 +154,7 @@ export default [
     id: 'why-react',
     stage: STAGE,
     title: 'რატომ React — ჯამი',
-    time: '47:30 – 49:00 (1.5 წთ)',
+    time: '50:30 – 52:00 (1.5 წთ)',
     notes: `
       <p>ექვსი უპირატესობა — თითოეულს ჩვენი ორი პროექტიდან ციფრი ახლავს (ქვედა ხაზი თითო ბარათზე).</p>
       <p>ხაზი გაუსვით: React არ არის "ჯადოქრობა". ის აკეთებს იმას, რასაც ჩვენ vanilla-ში ხელით ვწერდით (router, re-render, escaping, cleanup) — ოღონდ ერთხელ, სწორად და ათასობით პროექტში გამოცდილად.</p>`,

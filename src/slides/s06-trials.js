@@ -32,7 +32,7 @@ export default [
     id: 'trial-cards',
     stage: STAGE,
     title: 'Trial 1 — განმეორებადი UI',
-    time: '31:00 – 33:00 (2 წთ)',
+    time: '34:00 – 36:00 (2 წთ)',
     notes: `
       <p>ერთი ბარათი — 12 პროდუქტი. მარცხნივ ჩვენი vanilla <code>ui.productCard()</code>, მარჯვნივ React-ის <code>&lt;ProductCard /&gt;</code>.</p>
       <p>Vanilla-ში ბარათი <b>სტრიქონია</b>: escaping ხელით (<code>esc()</code>), ხოლო ღილაკის ქცევა <b>სხვა ფაილშია</b> — app.js-ში, document-ზე (<code>data-add</code>).</p>
@@ -56,7 +56,7 @@ export default [
   quizSlide({
     id: 'quiz-props',
     title: 'Quiz: props',
-    time: '33:00 – 34:00 (1 წთ)',
+    time: '36:00 – 37:00 (1 წთ)',
     notes: '<p>სწორი: <b>B</b>. props = კომპონენტის "არგუმენტები". ProductCard იღებს <code>{ p }</code>-ს და მისგან ხატავს ბარათს. props მხოლოდ წასაკითხია — კომპონენტი მათ არ ცვლის.</p>',
     question: 'რას აკეთებს <span class="mono">p={p}</span> ამ ჩანაწერში?',
     code: '{items.map((p) => <ProductCard key={p.id} p={p} />)}',
@@ -74,7 +74,7 @@ export default [
     id: 'trial-state',
     stage: STAGE,
     title: 'Trial 2 — State',
-    time: '34:00 – 36:00 (2 წთ)',
+    time: '37:00 – 39:00 (2 წთ)',
     notes: `
       <p>პროდუქტის გვერდის რაოდენობის მთვლელი — ორივე პროექტიდან.</p>
       <p>დააჭირეთ <b>+</b> მარცხენა მინი-მთვლელზე: ინათება ხაზები 6–10 — event, მნიშვნელობის გამოთვლა და <b>ორი</b> ხელით DOM ჩაწერა (<code>qtyEl</code>, <code>totalEl</code>). დაგავიწყდებათ ერთი — ეკრანი "იცრუებს".</p>
@@ -139,7 +139,7 @@ export default [
   quizSlide({
     id: 'quiz-state',
     title: 'Quiz: state',
-    time: '36:00 – 37:00 (1 წთ)',
+    time: '39:00 – 40:00 (1 წთ)',
     notes: '<p>სწორი: <b>C</b>. setter-ის გამოძახება React-ს ეუბნება: "state შეიცვალა" → კომპონენტი თავიდან სრულდება და JSX ახალ მნიშვნელობას აჩვენებს. ხელით DOM-ს არ ვეხებით.</p>',
     question: 'რა ხდება <span class="mono">setQty((q) =&gt; q + 1)</span>-ის გამოძახების შემდეგ?',
     options: [
@@ -156,7 +156,7 @@ export default [
     id: 'trial-api',
     stage: STAGE,
     title: 'Trial 3 — API მონაცემები',
-    time: '37:00 – 39:00 (2 წთ)',
+    time: '40:00 – 42:00 (2 წთ)',
     notes: `
       <p>მენიუს ჩატვირთვა API-დან. Vanilla-ში ყოველი მდგომარეობა — loading, empty, error, data — <b>ცალკე innerHTML ბრძანებაა</b> (მონიშნული ხაზები).</p>
       <p>React-ში: fetch → <b>state</b> → JSX. ყველა მდგომარეობა ერთ ადგილას ჩანს, როგორც პირობა. <code>.map()</code> აბრუნებს <b>კომპონენტების მასივს</b>.</p>
@@ -178,7 +178,7 @@ export default [
   quizSlide({
     id: 'quiz-key',
     title: 'Quiz: key',
-    time: '39:00 – 40:00 (1 წთ)',
+    time: '42:00 – 43:00 (1 წთ)',
     notes: '<p>სწორი: <b>C</b>. key-ით React ცნობს, რომელი ელემენტი რომელია ორ რენდერს შორის — სიაში დამატებისას, წაშლისას თუ გადალაგებისას. key უნდა იყოს სტაბილური და უნიკალური (id), არა მასივის index, თუ სია იცვლება.</p>',
     question: 'რატომ ვწერთ <span class="mono">key={p.id}</span>-ს?',
     code: '{items.map((p) => <ProductCard key={p.id} p={p} />)}',

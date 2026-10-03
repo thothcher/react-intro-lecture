@@ -35,7 +35,7 @@ export default [
     id: 'recap',
     stage: STAGE,
     title: 'რა შეგიძლიათ ახლა',
-    time: '58:00 – 59:00 (1 წთ)',
+    time: '61:00 – 62:00 (1 წთ)',
     notes: `
       <p>გავიაროთ მოგზაურობა უკან: თითოეული ხაზი ერთ ეტაპს შეესაბამება (მარცხნივ ეტაპის ნომერი).</p>
       <p>სთხოვეთ ერთ-ერთ სტუდენტს, საკუთარი სიტყვებით ახსნას <b>რატომ</b> არ განახლდა ეკრანი "იპოვე ბაგი" სლაიდზე.</p>`,
@@ -44,7 +44,7 @@ export default [
       <ol class="recap-list">
         <li><span class="mono">03 / REFUSAL</span><p>აუხსნათ, რატომ არ მასშტაბირდება copy-paste header — და რა ფასი აქვს "საკუთარ framework-ს"</p></li>
         <li><span class="mono">04 / MENTOR</span><p>გაარჩიოთ client-side routing და გვერდის სრული ჩატვირთვა; ახსნათ UI = f(state)</p></li>
-        <li><span class="mono">06 / TRIALS · 1</span><p>დაყოთ UI კომპონენტებად და გადასცეთ მონაცემი <span class="mono">props</span>-ით</p></li>
+        <li><span class="mono">06 / TRIALS · 1</span><p>წაიკითხოთ JSX, დაყოთ UI კომპონენტებად და გადასცეთ მონაცემი <span class="mono">props</span>-ით</p></li>
         <li><span class="mono">06 / TRIALS · 2</span><p>შეინახოთ მდგომარეობა <span class="mono">useState</span>-ით და დაეყრდნოთ re-render-ს</p></li>
         <li><span class="mono">06 / TRIALS · 3</span><p>API-ს მონაცემი <span class="mono">.map()</span>-ით აქციოთ კომპონენტებად — <span class="mono">key</span>-ით</p></li>
         <li><span class="mono">06 / TRIALS · 4–6</span><p>ახსნათ reconciliation, XSS-ისგან ავტომატური დაცვა და listener-ების გასუფთავება</p></li>
@@ -57,7 +57,7 @@ export default [
     id: 'vocabulary',
     stage: STAGE,
     title: 'ლექსიკონი',
-    time: '59:00 – 60:30 (1.5 წთ)',
+    time: '62:00 – 63:30 (1.5 წთ)',
     notes: `
       <p>ყველა ახალი ტერმინი ერთ გვერდზე, მოკლე ინგლისური განმარტებით — ასე შეხვდებიან მათ დოკუმენტაციაში (react.dev).</p>
       <p>შესთავაზეთ სტუდენტებს სლაიდის ფოტოს გადაღება.</p>`,
@@ -72,7 +72,7 @@ export default [
     id: 'practice',
     stage: STAGE,
     title: 'პრაქტიკა — 45 წუთი',
-    time: '60:30 – 61:00 (0.5 წთ) · შემდეგ შესვენება 10 წთ (B) · შემდეგ პრაქტიკა 45 წთ',
+    time: '63:30 – 64:00 (0.5 წთ) · შემდეგ შესვენება 10 წთ (B) · შემდეგ პრაქტიკა 45 წთ',
     notes: `
       <p>აქ ჩართეთ <b>ყავის შესვენება</b>: B ან ზედა მარჯვენა კუთხის ხატულა (10:00).</p>
       <p>პრაქტიკის რიტმი: 5 / 10 / 10 / 10 / 10 წთ. ყოველი ეტაპის ბოლოს — ერთი სტუდენტის ეკრანი პროექტორზე.</p>
