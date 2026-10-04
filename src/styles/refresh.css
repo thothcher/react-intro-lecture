@@ -533,3 +533,48 @@
 .recap-stage b.mono { color: #fff !important; font-size: 1cqw; letter-spacing: 0; }
 .recap-list p { font-size: 1.15cqw; line-height: 1.45; }
 .recap-list p .mono { font-size: 0.95em; letter-spacing: 0; color: var(--ink); background: rgba(11, 27, 58, 0.06); padding: 0 0.25em; }
+
+/* ---------- JSX: hint to the next slide ---------- */
+.jsx-next { grid-column: 1 / -1; display: flex; align-items: center; gap: 0.7cqw; margin: 2.4cqh 0 0; font-size: 0.95cqw; color: var(--sec); opacity: 0; transition: opacity var(--t-mid) var(--ease-out); }
+.jsx-next.is-on { opacity: 1; }
+.jsx-next .ico { width: 1.3cqw; height: 1.3cqw; }
+
+/* ---------- JSX in a real component: our Header ---------- */
+.jh { position: absolute; top: 20cqh; left: 3cqw; right: 3cqw; bottom: 6cqh; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 2cqw; }
+.jh-code { min-width: 0; min-height: 0; display: flex; }
+.jh-code .code { flex: 1; }
+.code--header .code-pre { font-size: 0.82cqw; line-height: 1.52; padding: 1cqh 0; }
+.code--header .ln.is-hl { background: rgba(255, 196, 92, 0.2); }
+.code--header .ln.is-hl::before { background: #FFC45C; }
+.jh-side { display: flex; flex-direction: column; gap: 1.3cqh; min-width: 0; min-height: 0; }
+.jh-live { padding: 1.2cqh 1.1cqw 1.3cqh; background: #fff; box-shadow: var(--lift); }
+.jh-live-h { display: flex; align-items: center; gap: 0.5cqw; margin: 0 0 1cqh; font-size: 0.72cqw; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); }
+.jh-dot { width: 0.6cqw; height: 0.6cqw; border-radius: 50%; background: #1E9E5A; box-shadow: 0 0 0 0.25cqw rgba(30, 158, 90, 0.2); animation: jh-live 1.8s ease-in-out infinite; }
+@keyframes jh-live { 50% { opacity: 0.35; } }
+.jh-header .mh-inner { font-size: 0.9cqw; }
+.jh-toggle { display: inline-flex; flex-direction: column; justify-content: center; gap: 0.3cqh; width: 2.2cqw; height: 2.2cqw; padding: 0 0.45cqw; margin-right: 0.4cqw; background: transparent; border: 1px solid rgba(200, 224, 244, 0.35); cursor: pointer; }
+.jh-toggle .mh-bar { display: block; height: 2px; background: #C8E0F4; transition: transform 300ms var(--ease-out), opacity 300ms; }
+.jh-toggle.is-open .mh-bar:nth-child(1) { transform: translateY(calc(0.3cqh + 2px)) rotate(45deg); }
+.jh-toggle.is-open .mh-bar:nth-child(2) { opacity: 0; }
+.jh-toggle.is-open .mh-bar:nth-child(3) { transform: translateY(calc(-0.3cqh - 2px)) rotate(-45deg); }
+.jh-header .mh-nav { transition: box-shadow 300ms; }
+.jh-header .mh-nav.open { box-shadow: 0 0 0 2px #9DD1F1; }
+.jh-header .mh-btn { cursor: pointer; }
+.jh-signin { padding: 0.5cqh 0.7cqw; color: #fff !important; background: #BA1200; }
+.jh-state { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5cqw; margin-top: 1cqh; }
+.jh-chip { padding: 0.45cqh 0.6cqw; font-size: 0.74cqw; color: var(--muted); background: var(--sec-tint); }
+.jh-chip b { font-weight: 600; color: var(--ink); }
+.jh-ctrl { display: inline-flex; gap: 0.4cqw; margin-left: auto; }
+.jh-ctrl .btn { padding: 0.45em 0.7em; font-size: 0.74cqw; background: #fff; }
+.jh-feats { display: grid; gap: 0.8cqh; margin: 0; padding: 0; list-style: none; }
+.jh-feats li { display: grid; grid-template-columns: 2.4cqw minmax(0, 1fr); gap: 0.8cqw; align-items: start; padding: 1cqh 1cqw; background: #fff; border-left: 0.3cqw solid rgba(11, 27, 58, 0.12); box-shadow: var(--lift); opacity: 0.55; transition: opacity 300ms, border-color 300ms, transform 300ms var(--ease-out); }
+.jh-feats li.is-done { opacity: 0.9; border-left-color: color-mix(in srgb, var(--sec) 45%, transparent); }
+.jh-feats li.is-now { opacity: 1; border-left-color: #FFC45C; transform: translateX(0.4cqw); }
+.jh-n { padding-top: 0.15em; font-size: 0.8cqw; color: var(--sec); }
+.jh-feats li.is-now .jh-n { color: #B07A00; }
+.jh-feats h3 { margin: 0 0 0.3cqh; font: 600 1cqw/1.2 var(--font); }
+.jh-feats p { margin: 0; font-size: 0.86cqw; line-height: 1.4; color: var(--muted); }
+.jh-feats .mono { font-size: 0.95em; color: var(--ink); }
+.jh-quiz { margin-top: auto; padding: 1.3cqh 1.2cqw; }
+.jh-quiz .jsx-quiz-q { font-size: 1.15cqw; }
+.jh-quiz .jsx-quiz-a { font-size: 0.92cqw; }

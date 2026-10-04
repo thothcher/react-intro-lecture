@@ -1,8 +1,10 @@
 # Vanilla JS → React — lecture deck
 
-39 slides in English, structured as a Hero's Journey:
+**Present it online:** https://thothcher.github.io/react-intro-lecture/ (full screen with F, speaker notes with S)
+
+40 slides in English, structured as a Hero's Journey:
 01 ORDINARY WORLD · 02 CALL · 03 REFUSAL · 04 MENTOR · 05 THRESHOLD · 06 TRIALS · 07 ORDEAL · 08 RETURN.
-About 72 minutes of theory (timings are computed per slide and shown in the speaker notes), then a 10-minute break and 45 minutes of practice.
+About 74 minutes of theory (timings are computed per slide and shown in the speaker notes), then a 10-minute break and 45 minutes of practice.
 
 Every stage has its own colour; code is shown in large, dark editor panels so it can be read from the back of the room;
 quizzes are a dark "game show"; the area around the 16:9 stage always takes the slide's colour, so there are no side bars.
@@ -14,6 +16,7 @@ npm install
 npm run dev        # http://localhost:5180
 npm run build      # dist/index.html: one self-contained file, opens by double-click, no internet needed
 npm run capture    # re-take the screenshots of both live sites (uses the installed Microsoft Edge)
+npm run deploy     # build and publish dist/ to the gh-pages branch (GitHub Pages)
 ```
 
 ## Presenting
@@ -32,26 +35,27 @@ npm run capture    # re-take the screenshots of both live sites (uses the instal
 | ? | keyboard help |
 
 `#/15` in the URL opens a given slide; `?nogl` previews the static fallback of the 3D monitor slide.
-Without WebGL, slide 34 keeps its steps panel and shows a short notice instead of the scene.
+Without WebGL, slide 35 keeps its steps panel and shows a short notice instead of the scene.
 
 Interactive slides:
 - **5**: → adds "About" to all 10 files, one at a time.
 - **13**: + / − changes the state; the imperative lines light up on the left.
 - **15**: the 3D monitors. Click links on the screens, → for the React monitor, then "Side view" and "Add a link to the header".
 - **16**: the framework map — React, Angular, Vue, Svelte and Next.js as cards with their logos.
-- **19** (JSX): → shows what the build turns two ProductCard.jsx excerpts into, → the resulting HTML, → a question (why `className` and not `class`?), → the answer.
-- **20** (How React thinks): four animated explainers — **Props** (one component, three results; read-only; events go up), **State** (memory → setter → re-render → one text node), **Hooks** (slots matched by call order; what breaks inside an `if`; custom hooks), **Virtual DOM** (two trees, a diff, one patch vs 18 operations with innerHTML). Tabs or → switch; "Replay" repeats.
-- **23**: the steppers under the code.
-- **27** (Trial 4, reconciliation): + / − changes the cart count; a real MutationObserver counts what each side deletes and recreates (vanilla 36 DOM operations, React 1 text change).
-- **28** (Trial 5, XSS): a normal or a malicious product name; the vanilla card runs the injected script unless you tick `esc()`, the React card shows it as text.
-- **29** (Trial 6, listeners, optional): Menu → Product a few times, then +; leaked listeners make one click count several times.
-- **7, 22, 24, 26, 30**: quizzes (1–4 or click).
-- **32**: → reveals bug 1, bug 2, then the fix; ← steps back.
-- **33**: CSR · SSR · SSG · ISR side by side.
-- **34**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML.
-- **36** (Vocabulary): a flashcard game — click a card to flip it, or press **R** for a random card in the spotlight, ask "what is it?", → flips it, → again puts it back. Shuffle / Reset.
-- **37**: Start your own React app — Node.js → Vite → `npm install` / `npm run dev` → the three files → components, props, state → `npm run build` and publish.
-- **38**: the students' task (Trattoria Lite): five timed steps, a "done when" checklist and bonus goals.
+- **19** (JSX): → shows what the build turns two ProductCard.jsx excerpts into, → the resulting HTML.
+- **20** (JSX in a real component): our real `Header` code next to the same JSX running live in React (sign in / out, + cart, the burger). → highlights one JSX feature at a time — attributes, `{ }` expressions, conditions, components & events, Fragment — then the question (why `className` and not `class`?) and the answer.
+- **21** (How React thinks): four animated explainers — **Props** (one component, three results; read-only; events go up), **State** (memory → setter → re-render → one text node), **Hooks** (slots matched by call order; what breaks inside an `if`; custom hooks), **Virtual DOM** (two trees, a diff, one patch vs 18 operations with innerHTML). Tabs or → switch; "Replay" repeats.
+- **24**: the steppers under the code.
+- **28** (Trial 4, reconciliation): + / − changes the cart count; a real MutationObserver counts what each side deletes and recreates (vanilla 36 DOM operations, React 1 text change).
+- **29** (Trial 5, XSS): a normal or a malicious product name; the vanilla card runs the injected script unless you tick `esc()`, the React card shows it as text.
+- **30** (Trial 6, listeners, optional): Menu → Product a few times, then +; leaked listeners make one click count several times.
+- **7, 23, 25, 27, 31**: quizzes (1–4 or click).
+- **33**: → reveals bug 1, bug 2, then the fix; ← steps back.
+- **34**: CSR · SSR · SSG · ISR side by side.
+- **35**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML.
+- **37** (Vocabulary): a flashcard game — click a card to flip it, or press **R** for a random card in the spotlight, ask "what is it?", → flips it, → again puts it back. Shuffle / Reset.
+- **38**: Start your own React app — Node.js → Vite → `npm install` / `npm run dev` → the three files → components, props, state → `npm run build` and publish.
+- **39**: the students' task (Trattoria Lite): five timed steps, a "done when" checklist and bonus goals.
 
 ## Structure
 
