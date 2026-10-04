@@ -8,102 +8,102 @@ const STAGE = '08 / RETURN';
 // Scores are 1–5 where MORE is always better (so "cheap hosting", not "server cost").
 export const STRATEGIES = {
   csr: {
-    acr: 'CSR', full: 'Client-Side Rendering', where: 'HTML იქმნება ბრაუზერში',
-    when: 'ყოველ ვიზიტზე — მომხმარებლის მოწყობილობაზე',
+    acr: 'CSR', full: 'Client-Side Rendering', where: 'HTML is built in the browser',
+    when: 'on every visit — on the user\'s device',
     meters: { speed: 2, seo: 2, fresh: 5, cheap: 5 },
-    example: 'admin პანელი, dashboard · ჩვენი restaurant-react', tool: 'Vite + React',
+    example: 'admin panels, dashboards · our restaurant-react', tool: 'Vite + React',
     steps: [
-      'ბრაუზერი ითხოვს გვერდს — <span class="mono">GET /product/34</span>',
-      'სერვერი აბრუნებს თითქმის ცარიელ HTML-ს: <span class="mono">&lt;div id="root"&gt;</span>',
-      'SEO ბოტი ცარიელ გვერდს ხედავს → დაბალი რეიტინგი',
-      'მოდის JS bundle (~320 KB)',
-      'ბრაუზერი ასრულებს JS-ს და აწყობს UI-ს',
-      '<span class="mono">fetch</span> → API → მონაცემი',
-      'გვერდი მზადაა — მაგრამ ყველაზე გვიან',
+      'The browser asks for the page — <span class="mono">GET /product/34</span>',
+      'The server returns almost empty HTML: <span class="mono">&lt;div id="root"&gt;</span>',
+      'The SEO bot sees an empty page → low rank',
+      'The JS bundle arrives (~320 KB)',
+      'The browser runs the JS and builds the UI',
+      '<span class="mono">fetch</span> → API → data',
+      'The page is ready — but last of all',
     ],
-    pros: ['სტატიკური, იაფი ჰოსტინგი (GitHub Pages)', 'ჩატვირთვის შემდეგ — ძალიან ინტერაქტიული'],
-    cons: ['ცარიელი ეკრანი, სანამ JS ჩაიტვირთება', 'სუსტი SEO და social preview'],
+    pros: ['static, cheap hosting (GitHub Pages)', 'very interactive once loaded'],
+    cons: ['a blank screen until the JS loads', 'weak SEO and social previews'],
   },
   ssr: {
-    acr: 'SSR', full: 'Server-Side Rendering', where: 'HTML იქმნება სერვერზე',
-    when: 'ყოველ მოთხოვნაზე — თავიდან',
+    acr: 'SSR', full: 'Server-Side Rendering', where: 'HTML is built on the server',
+    when: 'on every request — again',
     meters: { speed: 4, seo: 5, fresh: 5, cheap: 2 },
-    example: 'ახალი ამბები, პერსონალური გვერდები, მაღაზია', tool: 'Next.js · React Router',
+    example: 'news, personalised pages, shops', tool: 'Next.js · React Router',
     steps: [
-      'მოთხოვნა — <span class="mono">GET /product/34</span>',
-      'სერვერი იღებს მონაცემს და ასრულებს React-ს',
-      'სერვერი აბრუნებს სრულ HTML-ს',
-      'SEO ბოტი სრულ კონტენტს ხედავს → მაღალი რეიტინგი',
-      'ეკრანზე მაშინვე ჩანს; JS "აცოცხლებს" — <b>hydration</b>',
-      'ყოველ მოთხოვნაზე სერვერი თავიდან მუშაობს',
+      'A request — <span class="mono">GET /product/34</span>',
+      'The server fetches the data and runs React',
+      'The server returns complete HTML',
+      'The SEO bot sees the full content → high rank',
+      'It shows up at once; JS "brings it to life" — <b>hydration</b>',
+      'On every request the server works again',
     ],
-    pros: ['სწრაფი პირველი ეკრანი', 'ძლიერი SEO', 'ყოველთვის ახალი მონაცემი'],
-    cons: ['სერვერის ხარჯი ყოველ მოთხოვნაზე', 'საჭიროა Node სერვერი'],
+    pros: ['a fast first screen', 'strong SEO', 'always fresh data'],
+    cons: ['server cost on every request', 'needs a Node server'],
   },
   ssg: {
-    acr: 'SSG', full: 'Static Site Generation', where: 'HTML იქმნება build-ის დროს',
-    when: 'ერთხელ — deploy-მდე',
+    acr: 'SSG', full: 'Static Site Generation', where: 'HTML is built at build time',
+    when: 'once — before deploying',
     meters: { speed: 5, seo: 5, fresh: 2, cheap: 5 },
-    example: 'დოკუმენტაცია, ბლოგი, landing გვერდი', tool: 'Next.js · Astro',
+    example: 'documentation, blogs, landing pages', tool: 'Next.js · Astro',
     steps: [
-      '<span class="mono">npm run build</span> — ყველა გვერდი წინასწარ იქმნება',
-      'მზა HTML ფაილები ინახება <span class="mono">dist/</span>-ში',
-      'მოთხოვნა — მზა ფაილი მყისიერად იგზავნება',
-      'SEO ბოტი სრულ კონტენტს ხედავს → მაღალი რეიტინგი',
-      'DB-ში ფასი შეიცვალა — გვერდი ძველია, სანამ თავიდან არ ააგებ',
+      '<span class="mono">npm run build</span> — every page is created in advance',
+      'The ready HTML files are stored in <span class="mono">dist/</span>',
+      'A request — the ready file is sent instantly',
+      'The SEO bot sees the full content → high rank',
+      'The price changed in the DB — the page is stale until you rebuild',
     ],
-    pros: ['ყველაზე სწრაფი', 'იაფი, სტატიკური ჰოსტინგი', 'ძლიერი SEO'],
-    cons: ['მონაცემი ძველდება', 'ბევრ გვერდზე build ნელია'],
+    pros: ['the fastest', 'cheap, static hosting', 'strong SEO'],
+    cons: ['data goes stale', 'slow builds with many pages'],
   },
   isr: {
-    acr: 'ISR', full: 'Incremental Static Regeneration', where: 'HTML — build-ზე + პერიოდულად',
-    when: 'build-ზე და ყოველ N წამში, საჭიროებისამებრ',
+    acr: 'ISR', full: 'Incremental Static Regeneration', where: 'HTML — at build + periodically',
+    when: 'at build time and every N seconds, on demand',
     meters: { speed: 5, seo: 5, fresh: 4, cheap: 4 },
-    example: 'პროდუქტების კატალოგი, მენიუ, სიახლეები', tool: 'Next.js',
+    example: 'product catalogues, menus, news', tool: 'Next.js',
     steps: [
-      'build — გვერდები წინასწარ, <span class="mono">revalidate: 60</span>',
-      'მოთხოვნა — cache-დან მყისიერად; SEO მაღალი',
-      '60 წამი გავიდა, DB-ში ფასი შეიცვალა',
-      'შემდეგი ვიზიტორი ჯერ ძველს იღებს — სერვერი ფონურად აახლებს მხოლოდ ამ გვერდს',
-      'მომდევნო ვიზიტორი უკვე ახალ გვერდს ხედავს',
+      'build — pages in advance, <span class="mono">revalidate: 60</span>',
+      'A request — instantly from the cache; high SEO',
+      '60 seconds pass, the price changes in the DB',
+      'The next visitor still gets the old page — the server rebuilds just this page in the background',
+      'The following visitor already sees the new page',
     ],
-    pros: ['SSG-ის სიჩქარე + პერიოდული განახლება', 'ახლდება მხოლოდ საჭირო გვერდი'],
-    cons: ['ერთი ვიზიტორი ჯერ ძველ ვერსიას ხედავს', 'სჭირდება framework (Next.js) და შესაბამისი ჰოსტინგი'],
+    pros: ['SSG speed + periodic updates', 'only the page that needs it is rebuilt'],
+    cons: ['one visitor still sees the old version', 'needs a framework (Next.js) and matching hosting'],
   },
 };
 
-const METERS = [['speed', 'პირველი ეკრანი'], ['seo', 'SEO'], ['fresh', 'მონაცემის სიახლე'], ['cheap', 'იაფი ჰოსტინგი']];
+const METERS = [['speed', 'first screen'], ['seo', 'SEO'], ['fresh', 'fresh data'], ['cheap', 'cheap hosting']];
 const squares = (n) => Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('');
 const PIPE = {
-  csr: [['server', 'სერვერი', 'ცარიელი HTML'], ['monitor', 'ბრაუზერი', 'აწყობს']],
-  ssr: [['server', 'სერვერი', 'აწყობს'], ['monitor', 'ბრაუზერი', 'აჩვენებს']],
-  ssg: [['build', 'build', 'აწყობს ერთხელ'], ['monitor', 'ბრაუზერი', 'აჩვენებს']],
-  isr: [['build', 'build', '+ ყოველ 60 წამში'], ['monitor', 'ბრაუზერი', 'აჩვენებს']],
+  csr: [['server', 'server', 'empty HTML'], ['monitor', 'browser', 'builds it']],
+  ssr: [['server', 'server', 'builds it'], ['monitor', 'browser', 'shows it']],
+  ssg: [['build', 'build', 'builds it once'], ['monitor', 'browser', 'shows it']],
+  isr: [['build', 'build', '+ every 60 s'], ['monitor', 'browser', 'shows it']],
 };
 
 function fallbackPanel() {
-  return `<div class="rs-fallback"><p>3D ანიმაცია ამ მოწყობილობაზე ხელმისაწვდომი არ არის. ნაბიჯები მარჯვნივ ჩანს — გამოიყენეთ ღილაკები.</p></div>`;
+  return `<div class="rs-fallback"><p>The 3D animation is not available on this device. The steps are on the right — use the buttons.</p></div>`;
 }
 
 export default [
   {
     id: 'render-compare',
     stage: STAGE,
-    title: 'სად იქმნება HTML? — CSR · SSR · SSG · ISR',
-    time: '55:00 – 57:00 (2 წთ)',
+    title: 'Where is the HTML built? — CSR · SSR · SSG · ISR',
+    min: 2,
     notes: `
-      <p>React-ით აწყობილი საიტი მომხმარებლამდე ოთხნაირად შეიძლება მივიდეს. განსხვავება ერთ კითხვაშია: <b>სად და როდის იწყობა HTML?</b></p>
-      <p><b>CSR</b> — ბრაუზერში (ჩვენი restaurant-react ზუსტად ასეა: GitHub Pages აძლევს ცარიელ index.html-ს და JS-ს). <b>SSR</b> — სერვერზე, ყოველ მოთხოვნაზე. <b>SSG</b> — ერთხელ, build-ის დროს. <b>ISR</b> — build-ზე და შემდეგ პერიოდულად, გვერდ-გვერდ.</p>
-      <p>ციფრები 1–5, სადაც მეტი ყოველთვის უკეთესია. SEO-ზე სიზუსტისთვის: Google-ს JS-ის შესრულება შეუძლია, მაგრამ მოგვიანებით და შეზღუდულად; ბევრი სხვა ბოტი და social preview (Facebook, Slack) — არა. ამიტომ CSR = SEO-ს რისკი.</p>
-      <p>SSR/SSG/ISR-ისთვის React-ს framework სჭირდება — ყველაზე ცნობილია <b>Next.js</b>. ეს შემდეგი ეტაპია.</p>`,
+      <p>A site built with React can reach the user in four ways. The difference is one question: <b>where and when is the HTML built?</b></p>
+      <p><b>CSR</b> — in the browser (our restaurant-react works exactly like this: GitHub Pages serves an empty index.html and the JS). <b>SSR</b> — on the server, on every request. <b>SSG</b> — once, at build time. <b>ISR</b> — at build time and then periodically, page by page.</p>
+      <p>Scores 1–5, where more is always better. To be precise about SEO: Google can run JavaScript, but later and with limits; many other bots and social previews (Facebook, Slack) cannot. So CSR = an SEO risk.</p>
+      <p>For SSR/SSG/ISR React needs a framework — the best known is <b>Next.js</b>. That is the next step.</p>`,
     html: () => `
-      ${head('სად იქმნება HTML?', 'ერთი React აპლიკაცია მომხმარებლამდე ოთხნაირად მიდის. განსხვავება — სად და როდის იწყობა HTML.')}
+      ${head('Where is the HTML built?', 'One React app can reach the user in four ways. The difference: where and when the HTML is built.')}
       <div class="rc">
         ${MODES.map((k) => {
           const s = STRATEGIES[k];
           return `
           <article class="rc-col ${k === 'csr' ? 'is-ours' : ''}">
-            ${k === 'csr' ? '<span class="rc-badge mono">ჩვენი პროექტი</span>' : ''}
+            ${k === 'csr' ? '<span class="rc-badge mono">our project</span>' : ''}
             <h3 class="rc-acr">${s.acr}</h3>
             <p class="rc-full mono">${s.full}</p>
             <p class="rc-where">${s.where}</p>
@@ -111,8 +111,8 @@ export default [
               ${PIPE[k].map(([ico, name, what], i) => `${i ? `<span class="rc-arrow">${icons.arrow}</span>` : ''}<span class="rc-node ${i === (k === 'csr' ? 1 : 0) ? 'is-maker' : ''}">${icons[ico]}<b>${name}</b><small>${what}</small></span>`).join('')}
             </div>
             <dl class="rc-meters">${METERS.map(([m, label]) => `<div><dt>${label}</dt><dd class="sq">${squares(s.meters[m])}</dd></div>`).join('')}</dl>
-            <p class="rc-when"><span class="kicker mono">როდის</span>${s.when}</p>
-            <p class="rc-ex"><span class="kicker mono">მაგალითი</span>${s.example}</p>
+            <p class="rc-when"><span class="kicker mono">when</span>${s.when}</p>
+            <p class="rc-ex"><span class="kicker mono">for example</span>${s.example}</p>
             <p class="rc-tool mono">${s.tool}</p>
           </article>`;
         }).join('')}
@@ -122,21 +122,21 @@ export default [
   {
     id: 'render-animated',
     stage: STAGE,
-    title: 'რენდერინგი — ანიმაციით',
-    time: '57:00 – 61:00 (4 წთ)',
-    steps: 'ავტომატურად იწყება CSR-ით. → ან "შემდეგი" — SSR, SSG, ISR. ჩანართებზე დაჭერით — ნებისმიერი რეჟიმი; "თავიდან" — გამეორება. ISR-ის შემდეგ → გადადის მომდევნო სლაიდზე.',
+    title: 'Rendering — animated',
+    min: 4,
+    steps: 'Starts with CSR automatically. → or "Next" — SSR, SSG, ISR. Click a tab for any mode; "Replay" repeats it. After ISR → moves to the next slide.',
     notes: `
-      <p>მარცხნივ <b>სერვერი</b> (ზემოთ build-ის საქაღალდე <code>dist/</code>, გვერდით მონაცემთა ბაზა), მარჯვნივ <b>ბრაუზერი</b>. გამადიდებელი შუშა — <b>SEO ბოტი</b>, რომელიც პირველ HTML-ს აფასებს.</p>
-      <p><b>CSR:</b> ცარიელი HTML → ბოტი ვერაფერს ხედავს (1/5). მერე "არეული" JS bundle მიფრინავს და ბრაუზერი მისგან აწყობს გვერდს, ბოლოს fetch-ით მონაცემი მოდის. ყველაზე გვიან მზადდება.</p>
-      <p><b>SSR:</b> სერვერი თვითონ ასრულებს React-ს (ბორბალი ტრიალებს, CPU იზრდება) და აგზავნის სრულ HTML-ს → ბოტი 5/5. ეკრანი მაშინვე ჩანს, hydration-ის შემდეგ ხდება ინტერაქტიული. მეორე მოთხოვნაზე სერვერი ისევ მუშაობს.</p>
-      <p><b>SSG:</b> <code>npm run build</code> ყველა გვერდს წინასწარ ქმნის → მოთხოვნაზე მზა ფაილი მყისიერად. მინუსი: DB-ში ფასი შეიცვალა, გვერდზე ძველი რჩება.</p>
-      <p><b>ISR:</b> იგივე, ოღონდ revalidate ტაიმერით: 60 წამის შემდეგ პირველი ვიზიტორი ჯერ ძველს იღებს, სერვერი ფონურად მხოლოდ ამ ერთ გვერდს აახლებს, მომდევნო უკვე ახალს ხედავს.</p>`,
+      <p>On the left the <b>server</b> (its build folder <code>dist/</code> on top, the database beside it), on the right the <b>browser</b>. The magnifying glass is the <b>SEO bot</b>, which grades the first HTML.</p>
+      <p><b>CSR:</b> empty HTML → the bot sees nothing (1/5). Then a "messy" JS bundle flies over and the browser builds the page from it; finally the data arrives with fetch. It is ready last of all.</p>
+      <p><b>SSR:</b> the server runs React itself (the gear spins, the CPU rises) and sends complete HTML → the bot gives 5/5. The screen appears at once and becomes interactive after hydration. On the second request the server works again.</p>
+      <p><b>SSG:</b> <code>npm run build</code> creates every page in advance → on request the ready file goes out instantly. The downside: the price changed in the DB, the page still shows the old one.</p>
+      <p><b>ISR:</b> the same, but with a revalidate timer: after 60 seconds the first visitor still gets the old page, the server rebuilds just that one page in the background, and the next visitor sees the new one.</p>`,
     html: () => `
       <div class="rs">
         <div class="rs-canvas" data-canvas></div>
         <header class="s-head rs-head">
-          <h2>როგორ მიდის გვერდი მომხმარებლამდე</h2>
-          <p>მარცხნივ სერვერი, მარჯვნივ ბრაუზერი. სად იქმნება HTML — და რას ხედავს SEO ბოტი?</p>
+          <h2>How a page reaches the user</h2>
+          <p>The server on the left, the browser on the right. Where is the HTML built — and what does the SEO bot see?</p>
         </header>
         <aside class="rs-panel">
           <div class="rs-tabs" role="tablist">${MODES.map((k, i) => `<button type="button" role="tab" data-mode="${i}" class="mono">${STRATEGIES[k].acr}</button>`).join('')}</div>
@@ -151,8 +151,8 @@ export default [
             <ul class="rs-cons" data-cons></ul>
           </div>
           <div class="rs-actions">
-            <button type="button" class="btn" data-replay>${icons.reset}<span>თავიდან</span></button>
-            <button type="button" class="btn btn-solid" data-next><span data-next-label>შემდეგი</span>${icons.arrow}</button>
+            <button type="button" class="btn" data-replay>${icons.reset}<span>Replay</span></button>
+            <button type="button" class="btn btn-solid" data-next><span data-next-label>Next</span>${icons.arrow}</button>
           </div>
         </aside>
       </div>`,
@@ -175,7 +175,7 @@ export default [
         $('[data-pros]').innerHTML = s.pros.map((p) => `<li>${icons.check}<span>${p}</span></li>`).join('');
         $('[data-cons]').innerHTML = s.cons.map((p) => `<li>${icons.cross}<span>${p}</span></li>`).join('');
         const next = MODES[i + 1];
-        $('[data-next-label]').textContent = next ? `შემდეგი: ${STRATEGIES[next].acr}` : 'შემდეგი სლაიდი';
+        $('[data-next-label]').textContent = next ? `Next: ${STRATEGIES[next].acr}` : 'Next slide';
         el.querySelector('.rs-panel').classList.remove('is-done');
       };
       const paintStep = (i) => {

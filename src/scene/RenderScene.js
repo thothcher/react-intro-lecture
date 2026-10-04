@@ -201,7 +201,7 @@ export class RenderScene {
       patch([652, 288, 112, 40], patchTexture('$14.00', { w: 448, h: 160, bg: '#DCEBF7', fg: '#031927', size: 84, edge: '#2F6B4F' })),
       patch([897, 284, 241, 49], patchTexture('Add to cart · $14.00', { w: 964, h: 196, bg: '#BA1200', fg: '#FFFFFF', size: 64 })),
     ];
-    this.veil = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: this.track(veilTexture('ჩანს, მაგრამ ჯერ არ არის ინტერაქტიული')), transparent: true, opacity: 0, toneMapped: false, depthWrite: false }));
+    this.veil = new THREE.Mesh(plane, new THREE.MeshBasicMaterial({ map: this.track(veilTexture('Visible — but not interactive yet')), transparent: true, opacity: 0, toneMapped: false, depthWrite: false }));
     this.veil.position.z = 0.0044;
     screen.add(this.veil);
     this.sweep = new THREE.Mesh(new THREE.PlaneGeometry(0.3, SH), new THREE.MeshBasicMaterial({ map: this.track(sweepTexture()), transparent: true, opacity: 0, toneMapped: false, depthWrite: false, blending: THREE.AdditiveBlending }));
@@ -220,17 +220,17 @@ export class RenderScene {
       req: textSprite('GET /product/34', 0.07, 'route'),
       api: textSprite('GET /api/products/34', 0.07, 'route'),
       build: textSprite('$ npm run build', 0.085, 'node'),
-      regen: textSprite('ფონური განახლება · product/34.html', 0.07, 'route'),
-      visitor2: textSprite('შემდეგი ვიზიტორი', 0.065, 'file'),
+      regen: textSprite('background rebuild · product/34.html', 0.07, 'route'),
+      visitor2: textSprite('next visitor', 0.065, 'file'),
     };
     this.verdicts = {
-      low: sprite(T(verdictTexture(1, 'ცარიელი HTML — კონტენტი არ ჩანს')), 0.27, { depthTest: false, order: 30 }),
-      high: sprite(T(verdictTexture(5, 'სრული კონტენტი — ინდექსირდება')), 0.27, { depthTest: false, order: 30 }),
+      low: sprite(T(verdictTexture(1, 'Empty HTML — no content to index')), 0.27, { depthTest: false, order: 30 }),
+      high: sprite(T(verdictTexture(5, 'Full content — gets indexed')), 0.27, { depthTest: false, order: 30 }),
     };
     this.tags = {
-      db: sprite(T(tagTexture('DB-ში ახლა', '$14.00')), 0.16, { depthTest: false, order: 25 }),
-      pageStale: sprite(T(tagTexture('გვერდზე ჩანს', '$15.50', 'bad')), 0.16, { depthTest: false, order: 25 }),
-      pageFresh: sprite(T(tagTexture('გვერდზე ჩანს', '$14.00', 'good')), 0.16, { depthTest: false, order: 25 }),
+      db: sprite(T(tagTexture('in the DB now', '$14.00')), 0.16, { depthTest: false, order: 25 }),
+      pageStale: sprite(T(tagTexture('the page shows', '$15.50', 'bad')), 0.16, { depthTest: false, order: 25 }),
+      pageFresh: sprite(T(tagTexture('the page shows', '$14.00', 'good')), 0.16, { depthTest: false, order: 25 }),
     };
     this.timer = timerTexture();
     this.track(this.timer.texture);

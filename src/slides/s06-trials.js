@@ -2,23 +2,27 @@ import { head, snippet } from './helpers.js';
 import { codeBlock, flashLines } from '../components/code.js';
 import { mountQuiz } from '../components/quiz.js';
 import { icons } from '../components/icons.js';
+import { logoTile } from '../components/brands.js';
+import { quizHead } from './quizHead.js';
 
 const STAGE = '06 / TRIALS';
 
-const side = (kind, label, file, body, points) => `
+/** One column of a vanilla-vs-React comparison, labelled with the JavaScript or React logo. */
+export const side = (kind, label, body, points) => `
   <div class="trial-col trial-col--${kind}">
-    <p class="trial-label"><span class="mono">${kind === 'vanilla' ? 'VANILLA' : 'REACT'}</span>${label}</p>
+    <p class="trial-label"><span class="vs-chip vs-chip--${kind}">${logoTile(kind === 'vanilla' ? 'js' : 'react')}${kind === 'vanilla' ? 'VANILLA' : 'REACT'}</span>${label}</p>
     ${body}
     <ul class="trial-points">${points.map((p) => `<li>${p}</li>`).join('')}</ul>
   </div>`;
 
-const quizSlide = ({ id, title, time, notes, question, code, options, answer, explain }) => ({
+const quizSlide = ({ id, n, topic, title, min, notes, question, code, options, answer, explain }) => ({
   id,
   stage: STAGE,
+  tone: 'quiz',
   title,
-  time,
+  min,
   notes,
-  html: () => `${head('Quiz')}<div class="quiz-wrap" data-quiz></div>`,
+  html: () => `${quizHead(n, topic)}<div class="quiz-wrap" data-quiz></div>`,
   mount: (el) => mountQuiz(el.querySelector('[data-quiz]'), {
     question, code: code ? codeBlock({ code, lang: 'jsx', numbers: false, cls: 'code--quiz' }) : '', options, answer, explain,
   }),
@@ -31,76 +35,78 @@ export default [
   {
     id: 'trial-cards',
     stage: STAGE,
-    title: 'Trial 1 — განმეორებადი UI',
-    time: '34:00 – 36:00 (2 წთ)',
+    title: 'Trial 1 — repeating UI',
+    min: 2,
     notes: `
-      <p>ერთი ბარათი — 12 პროდუქტი. მარცხნივ ჩვენი vanilla <code>ui.productCard()</code>, მარჯვნივ React-ის <code>&lt;ProductCard /&gt;</code>.</p>
-      <p>Vanilla-ში ბარათი <b>სტრიქონია</b>: escaping ხელით (<code>esc()</code>), ხოლო ღილაკის ქცევა <b>სხვა ფაილშია</b> — app.js-ში, document-ზე (<code>data-add</code>).</p>
-      <p>React-ში markup და ქცევა ერთ ადგილასაა; მონაცემი <b>props</b>-ით შემოდის; <code>{p.name}</code> ავტომატურად escaped-ია.</p>`,
+      <p>One card — 12 products. On the left our vanilla <code>ui.productCard()</code>, on the right React's <code>&lt;ProductCard /&gt;</code>.</p>
+      <p>In vanilla the card is <b>a string</b>: escaping by hand (<code>esc()</code>), and the button's behaviour lives <b>in another file</b> — in app.js, on the document (<code>data-add</code>).</p>
+      <p>In React, markup and behaviour live in one place; the data comes in through <b>props</b>; <code>{p.name}</code> is escaped automatically.</p>`,
     html: () => `
-      ${head('Trial 1 — განმეორებადი UI', 'პროდუქტის ბარათი: ერთი შაბლონი, 12 ბარათი.')}
+      ${head('Trial 1 — repeating UI', 'The product card: one template, 12 cards.')}
       <div class="trial">
-        ${side('vanilla', 'სტრიქონი-შაბლონი', '', snippet('s19-vanilla', { file: 'js/ui.js + js/app.js', tag: 'შემოკლებული', hl: '2, 4-5, 7, 12-13' }), [
-          'HTML — სტრიქონია; ეკრანზე <span class="mono">innerHTML</span>-ით ხვდება',
-          'XSS-ისგან დაცვა ხელით: <span class="mono">esc()</span> ყველგან',
-          'ღილაკის ქცევა სხვა ფაილშია: <span class="mono">data-add</span> + document click',
+        ${side('vanilla', 'a string template', snippet('s19-vanilla', { file: 'js/ui.js + js/app.js', tag: 'abridged', hl: '2, 4-5, 7, 12-13' }), [
+          'the HTML is a string; it reaches the screen through <span class="mono">innerHTML</span>',
+          'XSS protection by hand: <span class="mono">esc()</span> everywhere',
+          'the button\'s behaviour is elsewhere: <span class="mono">data-add</span> + a document click handler',
         ])}
-        ${side('react', 'კომპონენტი props-ით', '', snippet('s19-react', { file: 'src/components/ProductCard.jsx', tag: 'შემოკლებული', hl: '1, 5-6, 9' }), [
-          'მონაცემი შემოდის <b>props</b>-ით: <span class="mono">{ p }</span>',
-          'escaping ავტომატურია: <span class="mono">{p.name}</span>',
-          'markup და ქცევა ერთ ადგილას: <span class="mono">onClick</span>',
+        ${side('react', 'a component with props', snippet('s19-react', { file: 'src/components/ProductCard.jsx', tag: 'abridged', hl: '1, 5-6, 9' }), [
+          'data comes in through <b>props</b>: <span class="mono">{ p }</span>',
+          'escaping is automatic: <span class="mono">{p.name}</span>',
+          'markup and behaviour in one place: <span class="mono">onClick</span>',
         ])}
       </div>`,
   },
 
   quizSlide({
     id: 'quiz-props',
+    n: 2,
+    topic: 'props',
     title: 'Quiz: props',
-    time: '36:00 – 37:00 (1 წთ)',
-    notes: '<p>სწორი: <b>B</b>. props = კომპონენტის "არგუმენტები". ProductCard იღებს <code>{ p }</code>-ს და მისგან ხატავს ბარათს. props მხოლოდ წასაკითხია — კომპონენტი მათ არ ცვლის.</p>',
-    question: 'რას აკეთებს <span class="mono">p={p}</span> ამ ჩანაწერში?',
+    min: 1,
+    notes: '<p>Correct: <b>B</b>. Props are the component\'s "arguments". ProductCard receives <code>{ p }</code> and draws the card from it. Props are read-only — the component does not change them.</p>',
+    question: 'What does <span class="mono">p={p}</span> do in this line?',
     code: '{items.map((p) => <ProductCard key={p.id} p={p} />)}',
     options: [
-      'ქმნის გლობალურ ცვლადს <span class="mono">p</span>',
-      'კომპონენტს გადასცემს მონაცემს — <b>props</b>-ის სახით',
-      'API-დან ითხოვს პროდუქტს',
-      'ამატებს CSS კლასს <span class="mono">p</span>',
+      'creates a global variable <span class="mono">p</span>',
+      'passes data to the component — as <b>props</b>',
+      'requests the product from the API',
+      'adds a CSS class <span class="mono">p</span>',
     ],
     answer: 1,
-    explain: 'props = კომპონენტის "არგუმენტები". <span class="mono">ProductCard</span> იღებს <span class="mono">{ p }</span>-ს და მისგან ხატავს ბარათს — ერთი კომპონენტი, 12 სხვადასხვა პროდუქტი.',
+    explain: 'Props are the component\'s "arguments". <span class="mono">ProductCard</span> receives <span class="mono">{ p }</span> and draws the card from it — one component, 12 different products.',
   }),
 
   {
     id: 'trial-state',
     stage: STAGE,
-    title: 'Trial 2 — State',
-    time: '37:00 – 39:00 (2 წთ)',
+    title: 'Trial 2 — state',
+    min: 2,
     notes: `
-      <p>პროდუქტის გვერდის რაოდენობის მთვლელი — ორივე პროექტიდან.</p>
-      <p>დააჭირეთ <b>+</b> მარცხენა მინი-მთვლელზე: ინათება ხაზები 6–10 — event, მნიშვნელობის გამოთვლა და <b>ორი</b> ხელით DOM ჩაწერა (<code>qtyEl</code>, <code>totalEl</code>). დაგავიწყდებათ ერთი — ეკრანი "იცრუებს".</p>
-      <p>მარჯვნივ: <code>setQty</code> → React <b>თავიდან არენდერებს</b> კომპონენტს → <code>{qty}</code> და ჯამი თვითონ განახლდება. ერთი წყარო: <code>qty</code>.</p>`,
+      <p>The quantity counter on the product page — from both projects.</p>
+      <p>Press <b>+</b> on the left mini counter: lines 6–10 light up — the event, computing the value and <b>two</b> manual DOM writes (<code>qtyEl</code>, <code>totalEl</code>). Forget one and the screen "lies".</p>
+      <p>On the right: <code>setQty</code> → React <b>re-renders</b> the component → <code>{qty}</code> and the total update themselves. One source: <code>qty</code>.</p>`,
     html: () => `
-      ${head('Trial 2 — State', 'რაოდენობის მთვლელი პროდუქტის გვერდზე. სცადეთ ქვემოთ — და უყურეთ, რომელი ხაზები მუშაობს.')}
+      ${head('Trial 2 — state', 'The quantity counter on the product page. Try it below — and watch which lines run.')}
       <div class="trial">
-        ${side('vanilla', 'ცვლადი + ხელით DOM', '', `
-          <div data-code>${snippet('s21-vanilla', { file: 'js/pages/product.js', tag: 'შემოკლებული', hl: '9-10' })}</div>
+        ${side('vanilla', 'a variable + the DOM by hand', `
+          <div data-code>${snippet('s21-vanilla', { file: 'js/pages/product.js', tag: 'abridged', hl: '9-10' })}</div>
           <div class="stepper-demo" data-demo="vanilla">
             <div class="sd-stepper"><button type="button" data-step="-1" aria-label="−">${icons.minus}</button><output data-q>1</output><button type="button" data-step="1" aria-label="+">${icons.plus}</button></div>
             <span class="sd-add">Add to cart · <b data-t>${money(PRICE)}</b></span>
-            <span class="sd-note mono">ხელით: <b data-ops>0</b> DOM ჩაწერა</span>
+            <span class="sd-note mono">by hand: <b data-ops>0</b> DOM writes</span>
           </div>`, [
-          '<span class="mono">qty</span> — უბრალო ცვლადი; ეკრანმა მის შესახებ არაფერი იცის',
-          'ყოველ ცვლილებაზე <b>ორივე</b> ადგილი ხელით უნდა განახლდეს',
+          '<span class="mono">qty</span> is a plain variable; the screen knows nothing about it',
+          'on every change <b>both</b> places must be updated by hand',
         ])}
-        ${side('react', 'useState + re-render', '', `
-          <div data-code>${snippet('s21-react', { file: 'src/pages/Product.jsx', tag: 'შემოკლებული', hl: '1, 4, 8' })}</div>
+        ${side('react', 'useState + re-render', `
+          <div data-code>${snippet('s21-react', { file: 'src/pages/Product.jsx', tag: 'abridged', hl: '1, 4, 8' })}</div>
           <div class="stepper-demo" data-demo="react">
             <div class="sd-stepper"><button type="button" data-step="-1" aria-label="−">${icons.minus}</button><output data-q>1</output><button type="button" data-step="1" aria-label="+">${icons.plus}</button></div>
             <span class="sd-add">Add to cart · <b data-t>${money(PRICE)}</b></span>
-            <span class="sd-note mono">re-render: <b data-ops>0</b></span>
+            <span class="sd-note mono">re-renders: <b data-ops>0</b></span>
           </div>`, [
-          '<span class="mono">useState</span> აბრუნებს <span class="mono">[მნიშვნელობა, setter]</span>',
-          '<span class="mono">setQty</span> → React თავიდან ხატავს; ეკრანი ყოველთვის <span class="mono">qty</span>-ს ემთხვევა',
+          '<span class="mono">useState</span> returns <span class="mono">[value, setter]</span>',
+          '<span class="mono">setQty</span> → React draws again; the screen always matches <span class="mono">qty</span>',
         ])}
       </div>`,
     mount(el) {
@@ -138,57 +144,61 @@ export default [
 
   quizSlide({
     id: 'quiz-state',
+    n: 3,
+    topic: 'state',
     title: 'Quiz: state',
-    time: '39:00 – 40:00 (1 წთ)',
-    notes: '<p>სწორი: <b>C</b>. setter-ის გამოძახება React-ს ეუბნება: "state შეიცვალა" → კომპონენტი თავიდან სრულდება და JSX ახალ მნიშვნელობას აჩვენებს. ხელით DOM-ს არ ვეხებით.</p>',
-    question: 'რა ხდება <span class="mono">setQty((q) =&gt; q + 1)</span>-ის გამოძახების შემდეგ?',
+    min: 1,
+    notes: '<p>Correct: <b>C</b>. Calling the setter tells React "the state changed" → the component runs again and the JSX shows the new value. We never touch the DOM by hand.</p>',
+    question: 'What happens after calling <span class="mono">setQty((q) =&gt; q + 1)</span>?',
     options: [
-      'არაფერი, სანამ გვერდს არ განაახლებ',
-      '<span class="mono">textContent</span> ხელით უნდა შეცვალო',
-      'React თავიდან არენდერებს კომპონენტს — <span class="mono">{qty}</span> და ჯამი თვითონ განახლდება',
-      'იტვირთება ახალი HTML გვერდი',
+      'nothing, until you refresh the page',
+      'you have to change <span class="mono">textContent</span> by hand',
+      'React re-renders the component — <span class="mono">{qty}</span> and the total update themselves',
+      'a new HTML page is loaded',
     ],
     answer: 2,
-    explain: 'setter React-ს ატყობინებს, რომ state შეიცვალა. React კომპონენტს თავიდან "გაუშვებს", ახალ JSX-ს ძველს შეადარებს და DOM-ში მხოლოდ განსხვავებას შეცვლის.',
+    explain: 'The setter tells React that the state changed. React "runs" the component again, compares the new JSX with the old one and changes only the difference in the DOM.',
   }),
 
   {
     id: 'trial-api',
     stage: STAGE,
-    title: 'Trial 3 — API მონაცემები',
-    time: '40:00 – 42:00 (2 წთ)',
+    title: 'Trial 3 — API data',
+    min: 2,
     notes: `
-      <p>მენიუს ჩატვირთვა API-დან. Vanilla-ში ყოველი მდგომარეობა — loading, empty, error, data — <b>ცალკე innerHTML ბრძანებაა</b> (მონიშნული ხაზები).</p>
-      <p>React-ში: fetch → <b>state</b> → JSX. ყველა მდგომარეობა ერთ ადგილას ჩანს, როგორც პირობა. <code>.map()</code> აბრუნებს <b>კომპონენტების მასივს</b>.</p>
-      <p>შეამჩნიეთ <code>key={p.id}</code> — ქვიზში დავუბრუნდებით.</p>`,
+      <p>Loading the menu from the API. In vanilla every state — loading, empty, error, data — is <b>a separate innerHTML write</b> (the highlighted lines).</p>
+      <p>In React: fetch → <b>state</b> → JSX. Every state is visible in one place, as a condition. <code>.map()</code> returns <b>an array of components</b>.</p>
+      <p>Notice <code>key={p.id}</code> — we come back to it in the quiz.</p>`,
     html: () => `
-      ${head('Trial 3 — API მონაცემები', 'მენიუ API-დან: loading → მონაცემი / ცარიელი / შეცდომა.')}
+      ${head('Trial 3 — API data', 'The menu from the API: loading → data / empty / error.')}
       <div class="trial">
-        ${side('vanilla', 'fetch + innerHTML სტრიქონები', '', snippet('s23-vanilla', { file: 'js/pages/menu.js', tag: 'შემოკლებული', hl: '1, 5-8, 11' }), [
-          'ყოველი მდგომარეობა — ცალკე <span class="mono">innerHTML</span> ჩაწერა',
-          'HTML იწყობა სტრიქონებად და <span class="mono">join(\'\')</span>-ით',
+        ${side('vanilla', 'fetch + innerHTML strings', snippet('s23-vanilla', { file: 'js/pages/menu.js', tag: 'abridged', hl: '1, 5-8, 11' }), [
+          'every state is a separate <span class="mono">innerHTML</span> write',
+          'the HTML is built from strings and <span class="mono">join(\'\')</span>',
         ])}
-        ${side('react', 'fetch → state → .map()', '', snippet('s23-react', { file: 'src/pages/Menu.jsx', tag: 'შემოკლებული', hl: '2-4, 8-11' }), [
-          'მონაცემი → <b>state</b> → JSX; ეკრანი ყოველთვის state-ს ემთხვევა',
-          '<span class="mono">.map()</span> აბრუნებს კომპონენტების მასივს',
+        ${side('react', 'fetch → state → .map()', snippet('s23-react', { file: 'src/pages/Menu.jsx', tag: 'abridged', hl: '2-4, 8-11' }), [
+          'data → <b>state</b> → JSX; the screen always matches the state',
+          '<span class="mono">.map()</span> returns an array of components',
         ])}
       </div>`,
   },
 
   quizSlide({
     id: 'quiz-key',
+    n: 4,
+    topic: 'lists & key',
     title: 'Quiz: key',
-    time: '42:00 – 43:00 (1 წთ)',
-    notes: '<p>სწორი: <b>C</b>. key-ით React ცნობს, რომელი ელემენტი რომელია ორ რენდერს შორის — სიაში დამატებისას, წაშლისას თუ გადალაგებისას. key უნდა იყოს სტაბილური და უნიკალური (id), არა მასივის index, თუ სია იცვლება.</p>',
-    question: 'რატომ ვწერთ <span class="mono">key={p.id}</span>-ს?',
+    min: 1,
+    notes: '<p>Correct: <b>C</b>. With key React recognises which item is which between two renders — when adding, removing or reordering. A key must be stable and unique (an id), not the array index if the list changes.</p>',
+    question: 'Why do we write <span class="mono">key={p.id}</span>?',
     code: '{items.map((p) => <ProductCard key={p.id} p={p} />)}',
     options: [
-      'CSS სტილისთვის',
-      'ასე მოითხოვს API',
-      'რომ React-მა რენდერებს შორის გაარჩიოს სიის ელემენტები',
-      'რომ fetch უფრო სწრაფი იყოს',
+      'for CSS styling',
+      'the API requires it',
+      'so React can tell list items apart between renders',
+      'to make fetch faster',
     ],
     answer: 2,
-    explain: 'key ელემენტის "პირადობის მოწმობაა". მისით React ხვდება, რომელი ბარათი დაემატა, წაიშალა თუ გადაადგილდა — და მხოლოდ მათ ცვლის. საუკეთესოა სტაბილური id.',
+    explain: 'A key is an item\'s "ID card". With it React knows which card was added, removed or moved — and changes only those. A stable id is best.',
   }),
 ];

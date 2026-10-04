@@ -3,6 +3,7 @@ import { setLines } from '../components/code.js';
 import { mountQuiz } from '../components/quiz.js';
 import { PAGES } from '../scene/assets.js';
 import { reducedMotion } from '../scene/tween.js';
+import { quizHead } from './quizHead.js';
 
 const STAGE = '03 / REFUSAL';
 
@@ -10,23 +11,23 @@ export default [
   {
     id: 'ten-files',
     stage: STAGE,
-    title: '10 ფაილი, ერთი და იგივე header',
-    time: '7:00 – 9:00 (2 წთ)',
-    steps: '→ ერთხელ: About ემატება 10 ფაილს, სათითაოდ. შემდეგი → გადადის მომდევნო სლაიდზე.',
+    title: '10 files, the same header',
+    min: 2,
+    steps: '→ once: About is added to all 10 files, one by one. The next → moves on to the next slide.',
     notes: `
-      <p>კლასიკური მიდგომა (ის, რითაც ყველამ დავიწყეთ): ყოველი გვერდი ცალკე <code>.html</code> ფაილია და <b>header-ის საკუთარ ასლს</b> ატარებს.</p>
-      <p>დააჭირეთ <b>→</b>: ვუყურებთ, როგორ ემატება <code>About</code> ფაილიდან ფაილში — 10-ჯერ. ერთი და იგივე ცვლილება, ხელით.</p>
-      <p>იკითხეთ: "რა მოხდება, თუ ხვალ ლინკის სახელი შეიცვლება? ან კიდევ ერთი გვერდი დაემატება?"</p>`,
+      <p>The classic approach (the one we all started with): every page is a separate <code>.html</code> file and carries <b>its own copy of the header</b>.</p>
+      <p>Press <b>→</b>: watch <code>About</code> being added file by file — 10 times. The same change, by hand.</p>
+      <p>Ask: "What happens if the link name changes tomorrow? Or one more page is added?"</p>`,
     html: () => `
-      ${head('10 ფაილი. ერთი და იგივე header.', 'კლასიკური მიდგომა: ყოველი გვერდი ცალკე HTML ფაილია და header-ის საკუთარ ასლს ატარებს.')}
+      ${head('10 files. The same header.', 'The classic approach: every page is a separate HTML file and carries its own copy of the header.')}
       <div class="files-meta">
-        <span class="mono files-count">შესწორებულია: <b data-count>0</b> / 10</span>
-        <span class="files-hint mono" data-hint>→ დავიწყოთ: About ყველა ფაილში</span>
+        <span class="mono files-count">edited: <b data-count>0</b> / 10</span>
+        <span class="files-hint mono" data-hint>→ let's start: About in every file</span>
       </div>
       <div class="files">
         ${PAGES.map((p) => `<div class="file-card">${snippet('s5-nav', { file: p.file, hide: 2, numbers: false, cls: 'code--mini' })}</div>`).join('')}
       </div>
-      <p class="files-foot">ერთი და იგივე ცვლილება × 10 ფაილი. და ახალ <span class="mono">about.html</span>-საც დასჭირდება header-ის <b class="accent">მე-11 ასლი</b>.</p>`,
+      <p class="files-foot">The same change × 10 files. And the new <span class="mono">about.html</span> needs an <b class="accent">11th copy</b> of the header too.</p>`,
     mount(el) {
       const cards = [...el.querySelectorAll('.file-card')];
       const $count = el.querySelector('[data-count]');
@@ -37,7 +38,7 @@ export default [
         next() {
           if (started) return false;
           started = true;
-          $hint.textContent = 'ერთი და იგივე ცვლილება — ხელით, 10-ჯერ';
+          $hint.textContent = 'the same change — by hand, 10 times';
           cards.forEach((card, i) => {
             timers.push(setTimeout(() => {
               setLines(card, 2, 'is-hidden', false);
@@ -56,34 +57,34 @@ export default [
   {
     id: 'risks',
     stage: STAGE,
-    title: 'სად შეიძლება შეცდეთ',
-    time: '9:00 – 10:30 (1.5 წთ)',
+    title: 'Where it goes wrong',
+    min: 1.5,
     notes: `
-      <p>სამი ტიპური შეცდომა, რომელიც copy-paste-ს თან ახლავს. ყველა რეალურია — ასეთი რამ ყველა სტუდენტის პროექტში მინახავს.</p>
-      <p><b>1.</b> დავიწყებული ფაილი — ერთ გვერდზე ლინკი უბრალოდ აკლია, და ამას დიდხანს ვერავინ ამჩნევს.</p>
-      <p><b>2.</b> Typo — <code>abuot.html</code> → 404.</p>
-      <p><b>3.</b> active ლინკი — ფაილი სხვა ფაილიდან დაკოპირდა და <code>class="active"</code> მასთან ერთად "ჩამოყვა".</p>
-      <p>დასკვნა: <b>რაც უფრო მეტი ასლია, მით მეტი ადგილია შეცდომისთვის.</b></p>`,
+      <p>Three typical mistakes that come with copy-paste. All are real — I have seen each of them in student projects.</p>
+      <p><b>1.</b> A forgotten file — the link is simply missing on one page, and nobody notices for a long time.</p>
+      <p><b>2.</b> A typo — <code>abuot.html</code> → 404.</p>
+      <p><b>3.</b> The active link — a file was copied from another one and <code>class="active"</code> "came along".</p>
+      <p>Conclusion: <b>the more copies, the more places for mistakes.</b></p>`,
     html: () => `
-      ${head('სად შეიძლება შეცდეთ', 'ყოველი ასლი — კიდევ ერთი ადგილი შეცდომისთვის.')}
+      ${head('Where it goes wrong', 'Every copy is one more place for a mistake.')}
       <div class="risks">
         <article class="risk">
           <span class="risk-n mono">01</span>
-          <h3>დავიწყებული ფაილი</h3>
+          <h3>A forgotten file</h3>
           ${snippet('s6-forgot', { numbers: false, bad: 3, cls: 'code--mini' })}
-          <p>მონიშნულ ადგილას <span class="mono">About</span> უნდა ყოფილიყო — verify.html-ზე ლინკი უბრალოდ არ ჩანს, და ამას დიდხანს ვერავინ ამჩნევს.</p>
+          <p>The highlighted spot should contain <span class="mono">About</span> — on verify.html the link is simply missing, and nobody notices for a long time.</p>
         </article>
         <article class="risk">
           <span class="risk-n mono">02</span>
-          <h3>Typo</h3>
+          <h3>A typo</h3>
           ${snippet('s6-typo', { numbers: false, bad: 3, cls: 'code--mini' })}
-          <p><span class="mono">abuot.html</span> — ლინკი 404-ზე მიდის.</p>
+          <p><span class="mono">abuot.html</span> — the link goes to a 404.</p>
         </article>
         <article class="risk">
           <span class="risk-n mono">03</span>
-          <h3>არასწორი active ლინკი</h3>
+          <h3>The wrong active link</h3>
           ${snippet('s6-active', { numbers: false, bad: 3, cls: 'code--mini' })}
-          <p>Cart-ის გვერდზე მონიშნულია Menu — კლასი კოპირებასთან ერთად "ჩამოყვა".</p>
+          <p>On the Cart page Menu is highlighted — the class "came along" with the copy.</p>
         </article>
       </div>`,
   },
@@ -91,19 +92,20 @@ export default [
   {
     id: 'quiz-files',
     stage: STAGE,
-    title: 'Quiz: რამდენი ფაილი?',
-    time: '10:30 – 12:00 (1.5 წთ)',
+    tone: 'quiz',
+    title: 'Quiz: how many files?',
+    min: 1.5,
     notes: `
-      <p>მიეცით 20 წამი. სთხოვეთ ხელის აწევა თითოეულ ვარიანტზე, მერე დააჭირეთ პასუხს (ან კლავიში 1–4).</p>
-      <p>სწორი: <b>11</b> — 10 არსებულ ფაილში ლინკი + ახალი <code>about.html</code>, რომელსაც <b>ასევე</b> სჭირდება header-ის ასლი.</p>
-      <p>ხშირი პასუხია 10 — სწორედ ეს ფარული მე-11 ფაილი არის პრობლემის არსი.</p>`,
-    html: () => `${head('Quiz')}<div class="quiz-wrap" data-quiz></div>`,
+      <p>Give 20 seconds. Ask for a show of hands for each option, then click the answer (or press 1–4).</p>
+      <p>Correct: <b>11</b> — the link in the 10 existing files + the new <code>about.html</code>, which <b>also</b> needs a copy of the header.</p>
+      <p>A common answer is 10 — that hidden 11th file is exactly the heart of the problem.</p>`,
+    html: () => `${quizHead(1, 'multi-page HTML')}<div class="quiz-wrap" data-quiz></div>`,
     mount(el) {
       return mountQuiz(el.querySelector('[data-quiz]'), {
-        question: 'კლასიკურ HTML საიტზე About-ის დასამატებლად <b>რამდენი ფაილის</b> შეცვლა მოგვიწია?',
+        question: 'On a classic HTML site, <b>how many files</b> did we have to change to add About?',
         options: ['1', '2', '10', '11'],
         answer: 3,
-        explain: '10 არსებულ გვერდში ლინკის დამატება + ახალი <span class="mono">about.html</span>, რომელსაც header-ის <b>საკუთარი ასლი</b> სჭირდება. სულ 11 — და გვერდების რაოდენობასთან ერთად ეს რიცხვიც იზრდება.',
+        explain: 'Adding the link to the 10 existing pages + the new <span class="mono">about.html</span>, which needs <b>its own copy</b> of the header. 11 in total — and the number grows with every page.',
       });
     },
   },
@@ -111,28 +113,28 @@ export default [
   {
     id: 'mini-framework',
     stage: STAGE,
-    title: 'ვცადეთ JS-ით: საკუთარი mini-framework',
-    time: '12:00 – 13:30 (1.5 წთ)',
+    title: 'We tried with JS: our own mini-framework',
+    min: 1.5,
     notes: `
-      <p>გულახდილი მომენტი: <b>ჩვენი</b> vanilla პროექტი ასე არ არის აწყობილი — მასში header ერთ ადგილასაა (<code>renderHeader()</code> app.js-ში).</p>
-      <p>მაგრამ ამის მისაღწევად ხელით დავწერეთ: router, store + subscribe, header-ის თავიდან დახატვა, active ლინკი, escaping, cleanup. სულ <b>~190 ხაზი</b> (app.js 151 + store.js 38) — და About-ისთვის მაინც 4 ადგილის შეცვლა დაგვჭირდა.</p>
-      <p>ფრაზა: <b>"ჩვენ უნებლიედ დავწერეთ პატარა, ცუდი React."</b> React არსებობს ზუსტად იმიტომ, რომ ეს ყველამ ცალ-ცალკე არ წეროს.</p>`,
+      <p>An honest moment: <b>our</b> vanilla project is not built like that — its header lives in one place (<code>renderHeader()</code> in app.js).</p>
+      <p>But to get there we wrote by hand: a router, a store + subscribe, re-drawing the header, the active link, escaping, cleanup. <b>~190 lines</b> in total (app.js 151 + store.js 38) — and adding About still meant changing 4 places.</p>
+      <p>The line to say: <b>"Without meaning to, we wrote a small, bad React."</b> React exists exactly so that everyone doesn't write this on their own.</p>`,
     html: () => `
-      ${head('ვცადეთ JS-ით: საკუთარი mini-framework', 'ჩვენს vanilla პროექტში header ერთ ადგილასაა. მაგრამ ამისთვის ხელით დავწერეთ ის, რასაც React მზად გვაძლევს.')}
+      ${head('We tried with JS: our own mini-framework', 'In our vanilla project the header lives in one place. But to get there we hand-wrote what React gives us for free.')}
       <div class="bridge">
         <ul class="bridge-list">
-          <li><span class="mono">js/app.js</span><span><b>Router</b> — regex მარშრუტები, <span class="mono">history.pushState</span></span></li>
-          <li><span class="mono">js/app.js</span><span><b>renderHeader()</b> — მთელი header ერთ სტრიქონად</span></li>
-          <li><span class="mono">js/store.js</span><span><b>Store + subscribe</b> — საკუთარი pub/sub</span></li>
-          <li><span class="mono">js/app.js</span><span><b>ხელახლა დახატვა</b> — ყოველ ცვლილებაზე header თავიდან</span></li>
-          <li><span class="mono">js/app.js</span><span><b>markActiveNav()</b> — active ლინკი ხელით</span></li>
-          <li><span class="mono">js/ui.js</span><span><b>esc()</b> — XSS-ისგან დაცვა ხელით</span></li>
+          <li><span class="mono">js/app.js</span><span><b>Router</b> — regex routes, <span class="mono">history.pushState</span></span></li>
+          <li><span class="mono">js/app.js</span><span><b>renderHeader()</b> — the whole header as one string</span></li>
+          <li><span class="mono">js/store.js</span><span><b>Store + subscribe</b> — a home-made pub/sub</span></li>
+          <li><span class="mono">js/app.js</span><span><b>Re-drawing</b> — the header again on every change</span></li>
+          <li><span class="mono">js/app.js</span><span><b>markActiveNav()</b> — the active link by hand</span></li>
+          <li><span class="mono">js/ui.js</span><span><b>esc()</b> — XSS protection by hand</span></li>
         </ul>
-        ${snippet('s8-header', { file: 'js/app.js', tag: 'შემოკლებული', hl: '3, 10, 13, 16', cls: 'code--compact' })}
+        ${snippet('s8-header', { file: 'js/app.js', tag: 'abridged', hl: '3, 10, 13, 16', cls: 'code--compact' })}
       </div>
       <div class="bridge-sum">
         <span class="bridge-num mono">≈190</span>
-        <p>ხაზი "ინფრასტრუქტურა" (<span class="mono">app.js</span> 151 + <span class="mono">store.js</span> 38) — და About-ისთვის მაინც <b>4 ადგილი</b> შევცვალეთ.<br><span class="muted">ჩვენ უნებლიედ დავწერეთ პატარა React. მოდით, ნამდვილს გავეცნოთ.</span></p>
+        <p>lines of "infrastructure" (<span class="mono">app.js</span> 151 + <span class="mono">store.js</span> 38) — and About still meant changing <b>4 places</b>.<br><span class="muted">Without meaning to, we wrote a small React. Let's meet the real one.</span></p>
       </div>`,
   },
 ];

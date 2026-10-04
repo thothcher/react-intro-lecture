@@ -94,7 +94,7 @@ export function mountReconcileDemo(el) {
   vObs.observe(vHost, opts);
   rObs.observe(rHost, opts);
 
-  const describe = (m) => `შეიქმნა <b>${m.addedCount}</b> · წაიშალა <b>${m.removedCount}</b> · ტექსტი <b>${m.textCount}</b>`;
+  const describe = (m) => `created <b>${m.addedCount}</b> · removed <b>${m.removedCount}</b> · text <b>${m.textCount}</b>`;
 
   function update(next) {
     count = Math.max(0, Math.min(99, next));
@@ -111,10 +111,10 @@ export function mountReconcileDemo(el) {
     rTree.innerHTML = treeHTML(rHost, mr);
     total.v += mv.addedCount + mv.removedCount + mv.textCount;
     total.r += mr.addedCount + mr.removedCount + mr.textCount;
-    stat.v.innerHTML = `${describe(mv)} <span class="muted">· სულ ${total.v} ოპერაცია</span>`;
-    stat.r.innerHTML = `${describe(mr)} <span class="muted">· სულ ${total.r} ოპერაცია</span>`;
-    same.v.innerHTML = vMenu.isConnected ? 'Menu ლინკი — <b>იგივე</b> ელემენტი' : 'Menu ლინკი — <b>ახალი</b> ელემენტი (focus, hover, ანიმაცია იკარგება)';
-    same.r.innerHTML = rMenu.isConnected ? 'Menu ლინკი — <b>იგივე</b> ელემენტი (არაფერი იკარგება)' : 'Menu ლინკი — <b>ახალი</b> ელემენტი';
+    stat.v.innerHTML = `${describe(mv)} <span class="muted">· ${total.v} operations in total</span>`;
+    stat.r.innerHTML = `${describe(mr)} <span class="muted">· ${total.r} operations in total</span>`;
+    same.v.innerHTML = vMenu.isConnected ? 'the Menu link — <b>the same</b> element' : 'the Menu link — <b>a new</b> element (focus, hover and animations are lost)';
+    same.r.innerHTML = rMenu.isConnected ? 'the Menu link — <b>the same</b> element (nothing is lost)' : 'the Menu link — <b>a new</b> element';
     same.v.classList.toggle('is-bad', !vMenu.isConnected);
     same.r.classList.toggle('is-good', rMenu.isConnected);
   }

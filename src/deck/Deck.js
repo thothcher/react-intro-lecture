@@ -29,15 +29,15 @@ export class Deck {
       <div class="help" hidden data-help>
         <p class="mono help-title">KEYS</p>
         <dl>
-          <dt>→ · Space · PgDn</dt><dd>შემდეგი (ან სლაიდის შემდეგი ნაბიჯი)</dd>
-          <dt>← · PgUp</dt><dd>წინა</dd>
-          <dt>Home · End</dt><dd>პირველი / ბოლო</dd>
-          <dt>S</dt><dd>speaker notes ცალკე ფანჯარაში</dd>
-          <dt>Shift + S</dt><dd>notes იგივე ეკრანზე</dd>
-          <dt>B</dt><dd>ყავის შესვენება (10:00)</dd>
+          <dt>→ · Space · PgDn</dt><dd>next (or the slide's next step)</dd>
+          <dt>← · PgUp</dt><dd>previous</dd>
+          <dt>Home · End</dt><dd>first / last slide</dd>
+          <dt>S</dt><dd>speaker notes in a separate window</dd>
+          <dt>Shift + S</dt><dd>notes on the same screen</dd>
+          <dt>B</dt><dd>coffee break (10:00)</dd>
           <dt>F</dt><dd>full screen</dd>
-          <dt>1–4</dt><dd>ქვიზის პასუხი</dd>
-          <dt>?</dt><dd>ეს დახმარება</dd>
+          <dt>1–4</dt><dd>answer a quiz</dd>
+          <dt>?</dt><dd>this help</dd>
         </dl>
       </div>`;
     this.slidesEl = document.createElement('div');
@@ -80,6 +80,7 @@ export class Deck {
     el.className = 'slide';
     el.dataset.id = slide.id;
     if (slide.tone) el.dataset.tone = slide.tone;
+    el.dataset.sec = (slide.stage || '').slice(0, 2);
     el.setAttribute('aria-roledescription', 'slide');
     el.setAttribute('aria-label', `${i + 1} / ${this.slides.length}: ${slide.title}`);
     el.style.setProperty('--dir', dir);
@@ -115,7 +116,11 @@ export class Deck {
     this.$progress.style.transform = `scaleX(${n > 1 ? this.index / (n - 1) : 1})`;
     this.$label.textContent = slide.stage;
     this.$counter.textContent = `${String(this.index + 1).padStart(2, '0')} / ${n}`;
-    this.stage.dataset.tone = slide.tone || 'light';
+    const dark = ['dark', 'quiz', 'game'].includes(slide.tone);
+    this.stage.dataset.tone = dark ? 'dark' : slide.tone || 'light';
+    this.stage.dataset.sec = (slide.stage || '').slice(0, 2);
+    // the area around the 16:9 stage takes the slide's own colour, so there are no visible side bars
+    document.body.dataset.frame = dark ? 'dark' : 'light';
   }
 
   next() {
@@ -147,10 +152,10 @@ export class Deck {
     if (['ArrowLeft', 'PageUp'].includes(k) || (k === ' ' && e.shiftKey && !onButton)) { e.preventDefault(); this.prev(); return; }
     if (k === 'Home') { e.preventDefault(); this.go(0, { dir: -1 }); return; }
     if (k === 'End') { e.preventDefault(); this.go(this.slides.length - 1); return; }
-    if (k === 's' || k === 'ს') { this.presenter.open(); return; }
-    if (k === 'S' || k === 'შ') { this.presenter.toggleOverlay(); return; }
-    if (k === 'b' || k === 'B' || k === 'ბ') { this.coffee.toggle(); return; }
-    if (k === 'f' || k === 'F' || k === 'ფ') { this.toggleFullscreen(); return; }
+    if (k === 's') { this.presenter.open(); return; }
+    if (k === 'S') { this.presenter.toggleOverlay(); return; }
+    if (k === 'b' || k === 'B') { this.coffee.toggle(); return; }
+    if (k === 'f' || k === 'F') { this.toggleFullscreen(); return; }
     if (k === '?') { this.$help.hidden = !this.$help.hidden; }
   }
 

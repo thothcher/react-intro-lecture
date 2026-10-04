@@ -1,8 +1,11 @@
 # Vanilla JS → React — lecture deck
 
-37 slides in Georgian (technical terms in English), structured as a Hero's Journey:
+39 slides in English, structured as a Hero's Journey:
 01 ORDINARY WORLD · 02 CALL · 03 REFUSAL · 04 MENTOR · 05 THRESHOLD · 06 TRIALS · 07 ORDEAL · 08 RETURN.
-About 65 min of theory (timing is in the speaker notes), then a 10-minute break and 45 min of practice.
+About 72 minutes of theory (timings are computed per slide and shown in the speaker notes), then a 10-minute break and 45 minutes of practice.
+
+Every stage has its own colour; code is shown in large, dark editor panels so it can be read from the back of the room;
+quizzes are a dark "game show"; the area around the 16:9 stage always takes the slide's colour, so there are no side bars.
 
 ## Run
 
@@ -25,35 +28,43 @@ npm run capture    # re-take the screenshots of both live sites (uses the instal
 | B | coffee break: 10:00 countdown with pause / reset; chime + visual signal at 00:00 |
 | F | full screen |
 | 1–4 | answer a quiz |
+| R | vocabulary slide: a random flashcard |
 | ? | keyboard help |
 
-`#/15` in the URL opens a given slide; `?nogl` previews the static fallback of the 3D monitor slide. Without WebGL, slide 33 keeps its steps panel and shows a short notice instead of the scene.
+`#/15` in the URL opens a given slide; `?nogl` previews the static fallback of the 3D monitor slide.
+Without WebGL, slide 34 keeps its steps panel and shows a short notice instead of the scene.
 
 Interactive slides:
 - **5**: → adds "About" to all 10 files, one at a time.
-- **13**: + / − changes the state.
-- **15**: the 3D monitors. Click links on the screens, → for the React monitor, then "Side view" and "Add link to header".
-- **19** (JSX): → shows what the build turns two ProductCard.jsx excerpts into, → the resulting HTML, → a question (why className and not class?), → the answer.
-- **22**: the steppers under the code.
-- **26** (Trial 4, reconciliation): + / − changes the cart count; a real MutationObserver counts what each side deletes and recreates (vanilla 36 DOM operations, React 1 text change).
-- **27** (Trial 5, XSS): switch between a normal and a malicious product name; the vanilla card runs the injected script unless you tick `esc()`, the React card shows it as text.
-- **28** (Trial 6, listeners, optional): go Menu → Product a few times, then press +; leaked listeners make one click count several times, and the cleanup checkbox fixes it.
-- **31**: → reveals bug 1, bug 2, then the fix; ← steps back.
-- **32**: CSR · SSR · SSG · ISR side by side: where and when the HTML is made, four rated criteria, when to use each.
-- **33**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML. Tabs or → switch CSR → SSR → SSG → ISR, "თავიდან" replays the current one.
+- **13**: + / − changes the state; the imperative lines light up on the left.
+- **15**: the 3D monitors. Click links on the screens, → for the React monitor, then "Side view" and "Add a link to the header".
+- **16**: the framework map — React, Angular, Vue, Svelte and Next.js as cards with their logos.
+- **19** (JSX): → shows what the build turns two ProductCard.jsx excerpts into, → the resulting HTML, → a question (why `className` and not `class`?), → the answer.
+- **20** (How React thinks): four animated explainers — **Props** (one component, three results; read-only; events go up), **State** (memory → setter → re-render → one text node), **Hooks** (slots matched by call order; what breaks inside an `if`; custom hooks), **Virtual DOM** (two trees, a diff, one patch vs 18 operations with innerHTML). Tabs or → switch; "Replay" repeats.
+- **23**: the steppers under the code.
+- **27** (Trial 4, reconciliation): + / − changes the cart count; a real MutationObserver counts what each side deletes and recreates (vanilla 36 DOM operations, React 1 text change).
+- **28** (Trial 5, XSS): a normal or a malicious product name; the vanilla card runs the injected script unless you tick `esc()`, the React card shows it as text.
+- **29** (Trial 6, listeners, optional): Menu → Product a few times, then +; leaked listeners make one click count several times.
+- **7, 22, 24, 26, 30**: quizzes (1–4 or click).
+- **32**: → reveals bug 1, bug 2, then the fix; ← steps back.
+- **33**: CSR · SSR · SSG · ISR side by side.
+- **34**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML.
+- **36** (Vocabulary): a flashcard game — click a card to flip it, or press **R** for a random card in the spotlight, ask "what is it?", → flips it, → again puts it back. Shuffle / Reset.
+- **37**: Start your own React app — Node.js → Vite → `npm install` / `npm run dev` → the three files → components, props, state → `npm run build` and publish.
+- **38**: the students' task (Trattoria Lite): five timed steps, a "done when" checklist and bonus goals.
 
 ## Structure
 
 ```
 src/
   deck/        slide engine (navigation, chrome, transitions) + presenter window
-  components/  code blocks (Prism, line highlights), quiz, coffee timer, icons
-  scene/       Three.js scenes: the monitors (MonitorScene) and the rendering strategies (RenderScene),
-               shared monitor model, canvas textures, tweens, screenshot loading
+  components/  code blocks (Prism, line highlights), quiz, flashcards, coffee timer, icons, brand logos
+  explain/     ConceptScene — the animated props / state / hooks / virtual DOM explainers
+  scene/       Three.js scenes: the monitors (MonitorScene) and the rendering strategies (RenderScene)
   demos/       live vanilla-vs-React demos for Trials 4–6 (real React 19 roots, measured DOM changes)
-  slides/      one file per Hero's-Journey stage; snippets/ holds the real code excerpts
-  styles/      tokens (palette, fonts), deck chrome, code theme, slide layouts
-  assets/      screens/: captured screenshots · img/: black-and-white Unsplash photos + credits.json
+  slides/      one file per Hero's-Journey stage (index.js computes the timings); snippets/ holds the real code excerpts
+  styles/      tokens, deck chrome, code theme, slide layouts, theme (stage colours), refresh (per-slide polish)
+  assets/      screens/: captured screenshots · img/: Unsplash photos + credits.json
 scripts/capture-screens.mjs
 ```
 
@@ -61,5 +72,6 @@ scripts/capture-screens.mjs
 
 - Code excerpts: `Desktop/restaurant` (vanilla) and `Desktop/restaurant-react`, quoted verbatim or marked as abridged.
 - Popularity figures: Stack Overflow Developer Survey 2025, "Web frameworks and technologies", all respondents.
+- Logos: [simple-icons](https://simpleicons.org) (CC0 icon data; the marks belong to their owners).
 - Photos (Unsplash License): Ricardo Gomez Angel, Thanos Pal, Andrew Kliatskyi, Colin Lloyd, Mike Hindle.
-- Fonts: FiraGO (Georgian + Latin) and JetBrains Mono, bundled locally (OFL).
+- Fonts: FiraGO and JetBrains Mono, bundled locally (OFL).

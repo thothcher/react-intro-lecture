@@ -32,27 +32,27 @@ export function mountCoffee(stage) {
   const btn = document.createElement('button');
   btn.type = 'button';
   btn.className = 'coffee-btn';
-  btn.setAttribute('aria-label', 'ყავის შესვენება (B)');
-  btn.title = 'ყავის შესვენება — B';
+  btn.setAttribute('aria-label', 'Coffee break (B)');
+  btn.title = 'Coffee break — B';
   btn.innerHTML = `${icons.coffee}<span class="coffee-mini mono" hidden></span>`;
 
   const overlay = document.createElement('div');
   overlay.className = 'coffee';
   overlay.hidden = true;
   overlay.setAttribute('role', 'dialog');
-  overlay.setAttribute('aria-label', 'ყავის შესვენება');
+  overlay.setAttribute('aria-label', 'Coffee break');
   overlay.innerHTML = `
     <div class="coffee-panel">
       <span class="coffee-kicker mono">COFFEE BREAK</span>
       <div class="coffee-icon">${icons.coffee}</div>
-      <p class="coffee-title">შესვენება</p>
+      <p class="coffee-title">Break</p>
       <div class="coffee-time mono" data-time>10:00</div>
       <div class="coffee-bar"><span data-bar></span></div>
-      <p class="coffee-msg" data-msg>ვბრუნდებით 10 წუთში — შემდეგ პრაქტიკა.</p>
+      <p class="coffee-msg" data-msg>Back in 10 minutes — then practice.</p>
       <div class="coffee-actions">
-        <button type="button" class="btn btn-solid" data-toggle>${icons.pause}<span>პაუზა</span></button>
-        <button type="button" class="btn" data-reset>${icons.reset}<span>თავიდან</span></button>
-        <button type="button" class="btn" data-close>${icons.close}<span>დახურვა</span></button>
+        <button type="button" class="btn btn-solid" data-toggle>${icons.pause}<span>Pause</span></button>
+        <button type="button" class="btn" data-reset>${icons.reset}<span>Reset</span></button>
+        <button type="button" class="btn" data-close>${icons.close}<span>Close</span></button>
       </div>
     </div>`;
 
@@ -73,7 +73,7 @@ export function mountCoffee(stage) {
     if (running) remaining = Math.max(0, endAt - Date.now());
     $time.textContent = fmt(remaining);
     $bar.style.transform = `scaleX(${remaining / TOTAL})`;
-    $toggle.innerHTML = running ? `${icons.pause}<span>პაუზა</span>` : `${icons.play}<span>${started && remaining < TOTAL && remaining > 0 ? 'გაგრძელება' : 'დაწყება'}</span>`;
+    $toggle.innerHTML = running ? `${icons.pause}<span>Pause</span>` : `${icons.play}<span>${started && remaining < TOTAL && remaining > 0 ? 'Resume' : 'Start'}</span>`;
     const showMini = started && overlay.hidden && remaining > 0;
     $mini.hidden = !showMini;
     $mini.textContent = fmt(remaining);
@@ -86,7 +86,7 @@ export function mountCoffee(stage) {
     clearInterval(timer);
     overlay.classList.add('is-done');
     btn.classList.add('is-done');
-    $msg.textContent = 'დრო ამოიწურა — ვბრუნდებით!';
+    $msg.textContent = 'Time is up — we\'re back!';
     chime();
     paint();
   }
@@ -107,7 +107,7 @@ export function mountCoffee(stage) {
     started = false;
     overlay.classList.remove('is-done');
     btn.classList.remove('is-done');
-    $msg.textContent = 'ვბრუნდებით 10 წუთში — შემდეგ პრაქტიკა.';
+    $msg.textContent = 'Back in 10 minutes — then practice.';
     paint();
   }
   function open() {

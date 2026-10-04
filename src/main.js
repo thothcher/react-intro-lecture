@@ -6,6 +6,8 @@ import './styles/components.css';
 import './styles/slides.css';
 import './styles/demos.css';
 import './slides/monitors.css';
+import './styles/theme.css';
+import './styles/refresh.css';
 import { Deck } from './deck/Deck.js';
 import { slides } from './slides/index.js';
 

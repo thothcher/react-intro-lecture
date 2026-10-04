@@ -1,6 +1,8 @@
 import { head, IMG, bwImage, snippet } from './helpers.js';
 import { url, PAGES } from '../scene/assets.js';
 import { icons } from '../components/icons.js';
+import { logo, logoTile } from '../components/brands.js';
+import { meta } from './meta.js';
 
 const STAGE = '01 / ORDINARY WORLD';
 
@@ -9,21 +11,21 @@ export default [
     id: 'title',
     stage: STAGE,
     title: 'Vanilla JS → React',
-    time: '0:00 – 1:00 (1 წთ)',
+    min: 1,
     notes: `
-      <p>მისალმება. დღეს ვაჩვენებთ <b>რეალურ პრობლემას</b> vanilla JS-ში და როგორ წყვეტს მას React.</p>
-      <p>სტრუქტურა: ~65 წთ თეორია (Hero's Journey — ზედა მარცხენა კუთხეში ეტაპი ჩანს), 10 წთ შესვენება, ~45 წთ პრაქტიკა.</p>
-      <p>მთავარი იდეა ერთი წინადადებით: <b>"როცა UI იზრდება, ხელით DOM-ის მართვა ვეღარ მასშტაბირდება."</b></p>`,
+      <p>Welcome. Today we look at a <b>real problem</b> in vanilla JS and how React solves it.</p>
+      <p>Structure: theory (the Hero's Journey — the current stage is shown in the top-left corner), a 10-minute break, then ~45 minutes of practice.</p>
+      <p>The main idea in one sentence: <b>"When a UI grows, managing the DOM by hand stops scaling."</b></p>`,
     html: () => `
       <div class="title-slide">
         <div class="title-text">
-          <p class="kicker mono">FRONTEND · REACT-ის შესავალი</p>
-          <h1>Vanilla JS <span class="title-arrow">${icons.arrow}</span> React</h1>
-          <p class="lead">ერთი რესტორანი, ორი მიდგომა — და მომენტი, როცა React აუცილებელი ხდება.</p>
+          <p class="kicker mono">FRONTEND · INTRODUCTION TO REACT</p>
+          <h1><span class="title-brand">${logoTile('js')}Vanilla JS</span> <span class="title-arrow">${icons.arrow}</span> <span class="title-brand">${logoTile('react')}React</span></h1>
+          <p class="lead">One restaurant, two approaches — and the moment React becomes essential.</p>
           <dl class="meta">
-            <div><dt class="mono">თეორია</dt><dd>~65 წთ</dd></div>
-            <div><dt class="mono">შესვენება</dt><dd>10 წთ</dd></div>
-            <div><dt class="mono">პრაქტიკა</dt><dd>~45 წთ</dd></div>
+            <div><dt class="mono">theory</dt><dd>~${meta.theoryMin} min</dd></div>
+            <div><dt class="mono">break</dt><dd>10 min</dd></div>
+            <div><dt class="mono">practice</dt><dd>~45 min</dd></div>
           </dl>
         </div>
         ${bwImage(IMG.architecture, 'title-img')}
@@ -33,26 +35,26 @@ export default [
   {
     id: 'site',
     stage: STAGE,
-    title: 'ამის აწყობა უკვე იცით',
-    time: '1:00 – 2:00 (1 წთ)',
+    title: 'You can already build this',
+    min: 1,
     notes: `
-      <p>ეს ჩვენი რესტორნის საიტია. <b>ორჯერ</b> არის აწყობილი: vanilla JS-ით და React-ით — იგივე დიზაინი, იგივე Swagger API.</p>
-      <p>ორივე live-ია GitHub Pages-ზე (მისამართები ეკრანზეა). შეგიძლიათ აჩვენოთ ბრაუზერში 20 წამით.</p>
-      <p>ხაზი გაუსვით: "ამას <b>თქვენ უკვე</b> შეძლებდით vanilla JS-ით. საკითხავია — რა ფასად?"</p>`,
+      <p>This is our restaurant website. It is built <b>twice</b>: with vanilla JS and with React — same design, same Swagger API.</p>
+      <p>Both are live on GitHub Pages (addresses on the slide). You can show them in the browser for 20 seconds.</p>
+      <p>Emphasise: "<b>You</b> could already build this with vanilla JS. The question is — at what cost?"</p>`,
     html: () => `
-      ${head('ამის აწყობა უკვე იცით', 'ერთი და იგივე რესტორანი, ორჯერ აწყობილი: vanilla JS-ით და React-ით. იგივე დიზაინი, იგივე API.')}
+      ${head('You can already build this', 'The same restaurant, built twice: with vanilla JS and with React. Same design, same API.')}
       <div class="site-grid">
         <figure class="browser">
           <div class="browser-bar"><i></i><i></i><i></i><span class="mono">thothcher.github.io/restaurant-vanilla-js</span></div>
-          <img src="${url('vanilla', 'home')}" alt="რესტორნის მთავარი გვერდი">
+          <img src="${url('vanilla', 'home')}" alt="The restaurant home page">
         </figure>
         <dl class="spec">
-          <div><dt class="mono">გვერდები</dt><dd>10 — მთავარი, მენიუ, პროდუქტი, კალათა, პროფილი, შესვლა…</dd></div>
-          <div><dt class="mono">API</dt><dd>Swagger · <span class="mono">restaurantapi.stepacademy.ge</span></dd></div>
-          <div><dt class="mono">ავტორიზაცია</dt><dd>JWT — access + refresh token</dd></div>
-          <div><dt class="mono">ფუნქციები</dt><dd>ფილტრები, კალათა, checkout, პროფილი</dd></div>
-          <div><dt class="mono">ხარისხი</dt><dd>Responsive, dark mode, SEO, ფორმების ვალიდაცია</dd></div>
-          <div><dt class="mono">live</dt><dd class="mono links">/restaurant-vanilla-js<br>/restaurant-react</dd></div>
+          <div><dt class="mono">${icons.file}pages</dt><dd>10 — home, menu, product, cart, profile, sign-in…</dd></div>
+          <div><dt class="mono">${icons.network}API</dt><dd>Swagger · <span class="mono">restaurantapi.stepacademy.ge</span></dd></div>
+          <div><dt class="mono">${icons.key}auth</dt><dd>JWT — access + refresh token</dd></div>
+          <div><dt class="mono">${icons.blocks}features</dt><dd>filters, cart, checkout, profile</dd></div>
+          <div><dt class="mono">${icons.target}quality</dt><dd>responsive, dark mode, SEO, form validation</dd></div>
+          <div class="spec-live"><dt class="mono">${icons.globe}live</dt><dd><span class="live-chip">${logo('js', { size: '1.1em' })}<span class="mono">/restaurant-vanilla-js</span></span><span class="live-chip">${logo('react', { size: '1.1em', color: '#149ECA' })}<span class="mono">/restaurant-react</span></span></dd></div>
         </dl>
       </div>
       <ol class="thumbs">
@@ -63,29 +65,29 @@ export default [
   {
     id: 'recap',
     stage: STAGE,
-    title: 'რაც უკვე იცით',
-    time: '2:00 – 3:00 (1 წთ)',
+    title: 'What you already know',
+    min: 1,
     notes: `
-      <p>სწრაფი გამეორება — ეს ხუთი რამ ყველამ იცის. კოდი ჩვენი vanilla პროექტიდანაა.</p>
-      <p>ხაზი გაუსვით მე-4-ს: <b>DOM-ის ხელით შეცვლა</b>. დღეს სწორედ ეს გახდება პრობლემა.</p>
-      <p>React არცერთს არ აუქმებს — ის ამ ყველაფრის <b>ზემოთ</b> დგას.</p>`,
+      <p>A quick recap — everyone knows these five things. The code comes from our vanilla project.</p>
+      <p>Emphasise number 4: <b>changing the DOM by hand</b>. Today exactly this becomes the problem.</p>
+      <p>React replaces none of them — it sits <b>on top</b> of all of this.</p>`,
     html: () => `
-      ${head('რაც უკვე იცით', 'ხელსაწყოები, რომლებითაც vanilla ვერსია აიწყო. React არცერთს არ აუქმებს — მათ ზემოთ დგას.')}
+      ${head('What you already know', 'The tools the vanilla version was built with. React replaces none of them — it sits on top.')}
       <ol class="recap">
         ${[
-          ['HTML', 'სტრუქტურა', 's3-html'],
-          ['CSS', 'იერსახე', 's3-css'],
-          ['JavaScript', 'ლოგიკა', 's3-js'],
-          ['DOM', 'ეკრანის ხელით შეცვლა', 's3-dom', true],
-          ['fetch', 'სერვერთან საუბარი', 's3-fetch'],
-        ].map(([term, desc, sn, key], i) => `
+          ['HTML', 'structure', 's3-html', 'html'],
+          ['CSS', 'appearance', 's3-css', 'css'],
+          ['JavaScript', 'logic', 's3-js', 'js'],
+          ['DOM', 'updating the screen by hand', 's3-dom', 'dom', true],
+          ['fetch', 'talking to the server', 's3-fetch', 'fetch'],
+        ].map(([term, desc, sn, ico, key], i) => `
           <li class="${key ? 'is-key' : ''}">
-            <span class="recap-n mono">0${i + 1}</span>
+            <div class="recap-top"><span class="recap-ico recap-ico--${ico}">${ico === 'js' ? logo('js', { color: '#1E1E1E' }) : ico === 'dom' ? icons.tree : ico === 'fetch' ? icons.network : `<b class="mono">${ico === 'html' ? '&lt;/&gt;' : '{ }'}</b>`}</span><span class="recap-n mono">0${i + 1}</span></div>
             <h3>${term}</h3>
             <p>${desc}</p>
             ${snippet(sn, { numbers: false, cls: 'code--mini' })}
           </li>`).join('')}
       </ol>
-      <p class="recap-foot"><span class="kicker mono">დღევანდელი თემა</span><span>React არცერთ მათგანს არ ცვლის — ის ცვლის მხოლოდ <b class="accent">04</b>-ს: <b>როგორ</b> განახლდება ეკრანი, როცა მონაცემი იცვლება.</span></p>`,
+      <p class="recap-foot"><span class="kicker mono">today's topic</span><span>React changes none of them — it changes only <b class="accent">04</b>: <b>how</b> the screen is updated when data changes.</span></p>`,
   },
 ];

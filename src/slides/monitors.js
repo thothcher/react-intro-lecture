@@ -1,4 +1,4 @@
-// Slide 15 — "ეკრანს მიღმა" (behind the screen): the 3D monitor scene with its HTML overlay.
+// "Behind the screen": the 3D monitor scene with its HTML overlay.
 import { MonitorScene } from '../scene/MonitorScene.js';
 import { url } from '../scene/assets.js';
 
@@ -15,15 +15,15 @@ function column(kind) {
     <div class="mon-col mon-col--${kind}" data-col="${kind}" ${isReact ? 'hidden' : ''}>
       <div class="mon-tag">
         <span class="mono">${isReact ? 'B · REACT' : 'A · VANILLA'}</span>
-        <span>${isReact ? 'ერთი HTML, ბევრი route (SPA)' : 'ცალკე HTML ფაილი თითო გვერდზე'}</span>
+        <span>${isReact ? 'one HTML, many routes (SPA)' : 'a separate HTML file per page'}</span>
       </div>
       <nav class="mon-routes" aria-label="${isReact ? 'React routes' : 'Vanilla files'}">
         ${ROUTES[kind].map(([key, label]) => `<button type="button" data-go="${key}">${label}</button>`).join('')}
       </nav>
       <p class="mon-stat" data-stat></p>
       <div class="mon-actions">
-        <button type="button" class="btn" data-side aria-pressed="false">გვერდითი ხედი</button>
-        <button type="button" class="btn btn-solid" data-edit hidden>header-ში ლინკის დამატება</button>
+        <button type="button" class="btn" data-side aria-pressed="false">Side view</button>
+        <button type="button" class="btn btn-solid" data-edit hidden>Add a link to the header</button>
       </div>
     </div>`;
 }
@@ -32,8 +32,8 @@ function fallback() {
   return `
     <div class="mon-fallback">
       <figure>
-        <div class="mon-fallback-frame"><img src="${url('vanilla', 'menu')}" alt="Vanilla: სრული გვერდი"></div>
-        <figcaption><b class="mono">A · VANILLA</b> ყოველი ლინკი ტვირთავს ახალ HTML ფაილს: header, main და footer ყველა თავიდან იქმნება. header-ის ასლი 10 ფაილშია.</figcaption>
+        <div class="mon-fallback-frame"><img src="${url('vanilla', 'menu')}" alt="Vanilla: the full page"></div>
+        <figcaption><b class="mono">A · VANILLA</b> every link loads a new HTML file: the header, main and footer are all created again. The header is copied into 10 files.</figcaption>
       </figure>
       <figure>
         <div class="mon-fallback-frame mon-fallback-frame--react">
@@ -41,7 +41,7 @@ function fallback() {
           <img src="${url('react', 'main-menu')}" alt="React main">
           <img src="${url('react', 'footer')}" alt="React footer">
         </div>
-        <figcaption><b class="mono">B · REACT</b> header და footer რჩება, იცვლება მხოლოდ &lt;main&gt;. header ერთ კომპონენტშია და ყველა გვერდს ერთდროულად ემსახურება.</figcaption>
+        <figcaption><b class="mono">B · REACT</b> the header and footer stay, only &lt;main&gt; changes. The header is one component that serves every page at once.</figcaption>
       </figure>
     </div>`;
 }
@@ -49,31 +49,31 @@ function fallback() {
 export const monitorsSlide = {
   id: 'monitors',
   stage: '04 / MENTOR',
-  title: 'ეკრანს მიღმა',
+  title: 'Behind the screen',
   notes: `
-    <p>ცენტრალური სლაიდი — აქ "დაიჭერენ" იდეას.</p>
-    <p><b>A — Vanilla.</b> დააჭირეთ ეკრანზე Menu-ს, მერე Cart-ს. აჩვენეთ: მთელი ზოლი მოძრაობს — header, main, footer ერთად იცვლება. ქვემოთ მრიცხველი: header ყოველ ჯერზე ნულიდან აიგო. ეს არის კლასიკური multi-page მიდგომა, რომელიც სტუდენტებმა უკვე იციან.</p>
-    <p>შენიშვნა: ჩვენს vanilla პროექტში ეს header ერთხელ გვაქვს (app.js → renderHeader), მაგრამ ამისთვის საკუთარი router და store დავწერეთ — სლაიდი 8.</p>
-    <p><b>B — "შემდეგი: React"</b> (ან → ღილაკი). იგივე ლინკები: header და footer ადგილზე რჩება, მოძრაობს მხოლოდ main. ეს არის client-side routing. მრიცხველი: Header-ის mount ×1.</p>
-    <p><b>C — გვერდითი ხედი.</b> Vanilla: 10 ფაილი, თითოეულში header-ის საკუთარი ასლი. "header-ში ლინკის დამატება" → ცვლილება 10-ჯერ, ფაილი ფაილზე. React: ერთი &lt;Header /&gt; (Layout.jsx), სხივები ყველა route-ში — ერთი ცვლილება, ყველა გვერდი ერთდროულად.</p>
-    <p>კითხვა აუდიტორიას: "რომელში უფრო ადვილია შეცდომის დაშვება?"</p>`,
+    <p>The central slide — this is where the idea "clicks".</p>
+    <p><b>A — Vanilla.</b> Click Menu on the screen, then Cart. Show: the whole strip moves — header, main and footer change together. The counter below: the header was built from scratch every time. This is the classic multi-page approach students already know.</p>
+    <p>Note: our vanilla project has this header only once (app.js → renderHeader), but for that we wrote our own router and store — the mini-framework slide.</p>
+    <p><b>B — "Next: React"</b> (or the → key). The same links: the header and footer stay in place, only main moves. This is client-side routing. Counter: Header mounted ×1.</p>
+    <p><b>C — Side view.</b> Vanilla: 10 files, each with its own copy of the header. "Add a link to the header" → the change 10 times, file by file. React: one &lt;Header /&gt; (Layout.jsx) with beams into every route — one change, every page at once.</p>
+    <p>Ask the audience: "In which one is it easier to make a mistake?"</p>`,
 
   async mount(el) {
     el.classList.add('mon');
     el.innerHTML = `
       <header class="mon-head">
         <h1>${this.title}</h1>
-        <p>რა ხდება, როცა ნავიგაციის ლინკს ვაჭერთ?</p>
+        <p>What happens when we click a navigation link?</p>
       </header>
       <div class="mon-canvas" data-canvas></div>
       ${column('vanilla')}
       ${column('react')}
       <div class="mon-next" data-next>
         <span class="mono mon-next-step">STEP B</span>
-        <p>იგივე საიტი, იგივე ლინკი.<br>რა შეიცვლება React-ში?</p>
-        <button type="button" class="btn btn-solid" data-next-btn>შემდეგი: React ${arrow}</button>
+        <p>Same site, same link.<br>What changes in React?</p>
+        <button type="button" class="btn btn-solid" data-next-btn>Next: React ${arrow}</button>
       </div>
-      <p class="mon-hint" data-hint>დააჭირეთ ლინკს ეკრანზე — <span class="mono">Menu</span>, <span class="mono">Cart</span>, <span class="mono">Nino</span> — ან მისამართს ქვემოთ</p>`;
+      <p class="mon-hint" data-hint>Click a link on the screen — <span class="mono">Menu</span>, <span class="mono">Cart</span>, <span class="mono">Nino</span> — or an address below</p>`;
 
     // ?nogl previews the static fallback that is shown when WebGL is unavailable
     if (!MonitorScene.supported() || new URLSearchParams(location.search).has('nogl')) {
@@ -103,17 +103,17 @@ export const monitorsSlide = {
       const edit = col.querySelector('[data-edit]');
       edit.hidden = !s.side;
       edit.disabled = s.busy;
-      edit.textContent = s.edited && !s.busy ? 'თავიდან' : 'header-ში ლინკის დამატება';
+      edit.textContent = s.edited && !s.busy ? 'Reset' : 'Add a link to the header';
 
       const stat = col.querySelector('[data-stat]');
       if (kind === 'vanilla') {
         stat.innerHTML = s.side
-          ? `შეცვლილი ფაილები: <b>${s.edits} / 10</b> <span>— ერთი და იგივე ცვლილება, ხელით, თითო ფაილში</span>`
-          : `header აიგო ნულიდან: <b>×${s.rebuilds}</b> <span>— ყოველი ლინკი = გვერდის სრული ჩატვირთვა</span>`;
+          ? `files changed: <b>${s.edits} / 10</b> <span>— the same change, by hand, in each file</span>`
+          : `header built from scratch: <b>×${s.rebuilds}</b> <span>— every link = a full page load</span>`;
       } else {
         stat.innerHTML = s.side
-          ? `შეცვლილი ფაილები: <b>${s.edits} / 1</b> <span>— ${s.edits ? 'განახლდა 10 გვერდი ერთდროულად' : 'ერთი &lt;Header /&gt; ყველა route-ისთვის'}</span>`
-          : `Header-ის mount: <b>×1</b> <span>— იცვლება მხოლოდ &lt;main&gt; (client-side routing)</span>`;
+          ? `files changed: <b>${s.edits} / 1</b> <span>— ${s.edits ? '10 pages updated at once' : 'one &lt;Header /&gt; for every route'}</span>`
+          : `Header mounted: <b>×1</b> <span>— only &lt;main&gt; changes (client-side routing)</span>`;
       }
       if (kind === 'react' && s.visible) el.querySelector('[data-next]').classList.add('is-gone');
     };

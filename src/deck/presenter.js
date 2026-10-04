@@ -41,7 +41,7 @@ export class Presenter {
     this.win = w;
     const doc = w.document;
     doc.open();
-    doc.write('<!doctype html><html lang="ka"><head><meta charset="utf-8"><title>Speaker notes — Vanilla JS → React</title></head><body class="presenter"></body></html>');
+    doc.write('<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Speaker notes — Vanilla JS → React</title></head><body class="presenter"></body></html>');
     doc.close();
     // reuse the deck's fonts (inlined @font-face rules) + presenter styles
     document.querySelectorAll('style').forEach((s) => { if (s.textContent.includes('@font-face')) doc.head.append(doc.importNode(s, true)); });
@@ -53,17 +53,17 @@ export class Presenter {
         <span class="p-count" data-p="count"></span>
         <span class="p-stage" data-p="stage"></span>
         <span class="p-title" data-p="title"></span>
-        <span class="p-clock">ლექცია <b data-p="elapsed">00:00</b> · <span data-p="now"></span></span>
+        <span class="p-clock">lecture <b data-p="elapsed">00:00</b> · <span data-p="now"></span></span>
       </header>
       <main class="p-body">
         <div class="p-notes" data-p="notes"></div>
         <aside class="p-side">
-          <div class="p-box"><h3>დრო</h3><div class="p-time" data-p="time"></div></div>
-          <div class="p-box"><h3>შემდეგი სლაიდი</h3><div data-p="next"></div></div>
-          <div class="p-box"><h3>ნაბიჯები</h3><div data-p="steps"></div></div>
+          <div class="p-box"><h3>Time</h3><div class="p-time" data-p="time"></div></div>
+          <div class="p-box"><h3>Next slide</h3><div data-p="next"></div></div>
+          <div class="p-box"><h3>Steps</h3><div data-p="steps"></div></div>
         </aside>
       </main>
-      <footer class="p-keys">→ / Space შემდეგი · ← წინა · B შესვენება · F full screen · 1–4 ქვიზის პასუხი</footer>`;
+      <footer class="p-keys">→ / Space next · ← previous · B break · F full screen · 1–4 quiz answer</footer>`;
     w.addEventListener('keydown', (e) => this.deck.handleKey(e));
     if (!this.startedAt) this.startedAt = Date.now();
     clearInterval(this.tick);
@@ -92,8 +92,8 @@ export class Presenter {
       $('title').textContent = s.title;
       $('notes').innerHTML = s.notes || '<p>—</p>';
       $('time').textContent = s.time || '—';
-      if ($('next')) $('next').textContent = next ? `${next.stage} — ${next.title}` : 'ბოლო სლაიდი';
-      if ($('steps')) $('steps').textContent = s.steps ? s.steps : 'ერთი ნაბიჯი';
+      if ($('next')) $('next').textContent = next ? `${next.stage} — ${next.title}` : 'last slide';
+      if ($('steps')) $('steps').textContent = s.steps ? s.steps : 'one step';
     };
     if (this.win && !this.win.closed) { fill(this.win.document); this.paintClock(); }
     if (this.overlay && !this.overlay.hidden) fill(this.overlay);

@@ -41,12 +41,12 @@ export function mountXssDemo(el) {
     vSide.classList.remove('is-pwned');
     vHost.innerHTML = vanillaCard(name, escBox.checked);
     flushSync(() => root.render(<Card name={name} />));
-    vChip.textContent = 'ვამოწმებთ…';
+    vChip.textContent = 'checking…';
     vChip.className = 'xss-chip';
     clearTimeout(timer);
     timer = setTimeout(() => {
       const pwned = vSide.classList.contains('is-pwned');
-      vChip.textContent = pwned ? 'სკრიპტი შესრულდა — XSS' : 'უსაფრთხო';
+      vChip.textContent = pwned ? 'the script ran — XSS' : 'safe';
       vChip.className = `xss-chip ${pwned ? 'is-bad' : 'is-good'}`;
     }, 350);
   }

@@ -1,0 +1,163 @@
+/* =====================================================================================
+   Theme layer — colour, depth and identity on top of the original grid.
+   Every Hero's-Journey stage has its own hue (--sec); light slides get soft glows of it,
+   cards get depth, quizzes become a dark "game show", and the frame around the 16:9 stage
+   always matches the slide, so there are no visible side bars.
+   ===================================================================================== */
+
+.stage {
+  --paper: #F1F4F9;
+  --sec: #2B6F93;
+  --lift: 0 1px 2px rgba(11, 27, 58, 0.05), 0 1.4cqh 3.2cqh -1.4cqh rgba(11, 27, 58, 0.24);
+  --lift-strong: 0 2px 4px rgba(11, 27, 58, 0.06), 0 2.4cqh 5cqh -2cqh rgba(11, 27, 58, 0.34);
+  background: var(--paper);
+}
+.stage[data-sec='01'] { --sec: #2B6F93; }  /* ORDINARY WORLD — steel blue */
+.stage[data-sec='02'] { --sec: #B7791F; }  /* CALL — amber */
+.stage[data-sec='03'] { --sec: #B4473A; }  /* REFUSAL — brick */
+.stage[data-sec='04'] { --sec: #5B4DB5; }  /* MENTOR — indigo */
+.stage[data-sec='05'] { --sec: #1C807A; }  /* THRESHOLD — teal */
+.stage[data-sec='06'] { --sec: #2B62C4; }  /* TRIALS — blue */
+.stage[data-sec='07'] { --sec: #B8332A; }  /* ORDEAL — red */
+.stage[data-sec='08'] { --sec: #2E7D4F; }  /* RETURN — green */
+.stage {
+  --sec-soft: color-mix(in srgb, var(--sec) 12%, white);
+  --sec-tint: color-mix(in srgb, var(--sec) 7%, var(--paper));
+  --sec-deep: color-mix(in srgb, var(--sec) 62%, #0B1B3A);
+  --sec-light: color-mix(in srgb, var(--sec) 55%, white);
+}
+
+/* the frame around the stage = the slide's base colour */
+body { background: #F1F4F9; transition: background 450ms var(--ease-out); }
+body[data-frame='dark'] { background: #0B1B3A; }
+
+/* ---------- light slides: paper + two soft glows of the section colour (masked away from the edges) ---------- */
+.slide { background: var(--paper); }
+.slide::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(34cqw 40cqh at 84% 14%, color-mix(in srgb, var(--sec) 15%, transparent), transparent 72%),
+    radial-gradient(30cqw 34cqh at 14% 96%, color-mix(in srgb, var(--sec) 9%, transparent), transparent 72%),
+    radial-gradient(circle at 1px 1px, rgba(11, 27, 58, 0.075) 1px, transparent 1.3px) 0 0 / 1.5cqw 1.5cqw;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent), linear-gradient(180deg, transparent, #000 10%, #000 88%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+.slide.mon::before, .slide[data-id='render-animated']::before { display: none; }
+
+/* ---------- dark slides (openers, quizzes, games) ---------- */
+.slide:is([data-tone='dark'], [data-tone='quiz'], [data-tone='game']) { background: #0B1B3A; color: #EEF2F8; }
+.slide:is([data-tone='dark'], [data-tone='quiz'], [data-tone='game'])::before {
+  background:
+    radial-gradient(40cqw 46cqh at 80% 18%, color-mix(in srgb, var(--sec) 40%, transparent), transparent 70%),
+    radial-gradient(36cqw 40cqh at 10% 100%, color-mix(in srgb, var(--sec) 26%, transparent), transparent 70%),
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.07) 1px, transparent 1.3px) 0 0 / 1.5cqw 1.5cqw;
+}
+.slide[data-tone='dark'] .opener-img img { mix-blend-mode: luminosity; }
+
+/* ---------- chrome ---------- */
+.stage-label {
+  background: color-mix(in srgb, var(--sec) 12%, white);
+  color: var(--sec-deep);
+  padding: 0.6cqh 0.8cqw;
+  margin-left: -0.8cqw;
+  border-left: 3px solid var(--sec);
+}
+.stage-label::after { background: color-mix(in srgb, var(--sec) 45%, transparent); }
+.stage[data-tone='dark'] .stage-label { background: rgba(255, 255, 255, 0.08); color: rgba(238, 242, 248, 0.86); border-left-color: var(--sec-light); }
+.progress span { background: var(--sec); }
+.stage[data-tone='dark'] .progress span { background: var(--sec-light); }
+
+/* ---------- headings ---------- */
+.s-head h2 { position: relative; font-size: 2.55cqw; }
+.s-head h2::after {
+  content: '';
+  display: block;
+  width: 3.4cqw;
+  height: 0.55cqh;
+  margin-top: 1.4cqh;
+  background: var(--sec);
+}
+.s-head p { font-size: 1.12cqw; color: #4E596C; }
+.kicker { color: var(--sec); }
+.slide:is([data-tone='dark'], [data-tone='quiz'], [data-tone='game']) .s-head h2 { color: #fff; }
+.slide:is([data-tone='dark'], [data-tone='quiz'], [data-tone='game']) .s-head p { color: rgba(238, 242, 248, 0.72); }
+
+/* ---------- shared card look ---------- */
+.ui-card {
+  background: #fff;
+  border: 1px solid rgba(11, 27, 58, 0.08);
+  box-shadow: var(--lift);
+}
+.ui-card--top { box-shadow: inset 0 0.45cqh 0 var(--sec), var(--lift); }
+.icon-tile {
+  display: inline-grid;
+  place-items: center;
+  width: 3cqw;
+  height: 3cqw;
+  color: var(--sec);
+  background: var(--sec-soft);
+}
+.icon-tile .ico { width: 1.6cqw; height: 1.6cqw; }
+
+/* brand logos */
+.logo { display: inline-block; vertical-align: -0.14em; flex: none; }
+.logo-tile { display: inline-grid; place-items: center; flex: none; width: 2.6cqw; height: 2.6cqw; }
+.logo-tile .logo { width: 62%; height: 62%; }
+
+/* vanilla vs React labels: JavaScript yellow vs React cyan */
+.vs-chip { display: inline-flex; align-items: center; gap: 0.6cqw; padding: 0.55cqh 0.8cqw 0.55cqh 0.55cqw; font: 600 0.8cqw/1 var(--mono); letter-spacing: 0.08em; }
+.vs-chip .logo-tile { width: 1.8cqw; height: 1.8cqw; }
+.vs-chip--vanilla { color: #6B5A00; background: #FFF6C2; }
+.vs-chip--react { color: #0B5E78; background: #DDF6FD; }
+
+/* ===================================================================================
+   QUIZ — dark game show
+   =================================================================================== */
+.quiz-top { position: absolute; top: 6.2cqh; left: 3cqw; right: 16cqw; display: flex; align-items: center; gap: 1.2cqw; }
+.quiz-badge { display: inline-flex; align-items: center; gap: 0.7cqw; padding: 0.9cqh 1.1cqw; font: 600 0.95cqw/1 var(--mono); letter-spacing: 0.22em; color: #0B1B3A; background: #FFD15C; box-shadow: 0 0 0 0.35cqw rgba(255, 209, 92, 0.18); }
+.quiz-topic { font: 500 1cqw/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: rgba(238, 242, 248, 0.6); }
+.slide[data-tone='quiz'] .quiz-wrap { inset: 15cqh 3cqw 7cqh; }
+.slide[data-tone='quiz'] .quiz { max-width: 80cqw; gap: 3.2cqh; }
+.slide[data-tone='quiz'] .quiz-q { font: 600 2.45cqw/1.28 var(--font); color: #fff; }
+.slide[data-tone='quiz'] .quiz-q b { color: #FFD15C; }
+.slide[data-tone='quiz'] .quiz-q .mono { color: #9FD8FF; }
+.slide[data-tone='quiz'] .quiz .code { max-width: 60cqw; box-shadow: none; border: 1px solid rgba(255, 255, 255, 0.14); background: #13284D; }
+.slide[data-tone='quiz'] .quiz-opts { gap: 1.4cqw; }
+.slide[data-tone='quiz'] .quiz-opt {
+  --q: #2D6FD1;
+  min-height: 9cqh;
+  padding: 2cqh 1.6cqw;
+  font: 500 1.3cqw/1.35 var(--font);
+  color: #fff;
+  background: var(--q);
+  border: 0;
+  box-shadow: inset 0 -0.6cqh 0 rgba(0, 0, 0, 0.22), 0 1.6cqh 3cqh -1.6cqh rgba(0, 0, 0, 0.6);
+  transition: transform 220ms var(--ease-out), opacity 400ms var(--ease-out), filter 400ms var(--ease-out), background 300ms;
+}
+.slide[data-tone='quiz'] .quiz-opt:nth-child(2) { --q: #D17A1F; }
+.slide[data-tone='quiz'] .quiz-opt:nth-child(3) { --q: #138F7E; }
+.slide[data-tone='quiz'] .quiz-opt:nth-child(4) { --q: #B8443B; }
+.slide[data-tone='quiz'] .quiz-opt:hover:not(:disabled) { transform: translateY(-0.5cqh); border: 0; }
+.slide[data-tone='quiz'] .quiz-text .mono { color: #fff; }
+.slide[data-tone='quiz'] .quiz-letter { width: 2.8cqw; height: 2.8cqw; font: 700 1.1cqw/1 var(--mono); color: var(--q); background: #fff; border: 0; }
+.slide[data-tone='quiz'] .quiz-mark { width: 2cqw; height: 2cqw; color: #fff; }
+.slide[data-tone='quiz'] .quiz-opt.is-correct { background: #1E9E5A; color: #fff; transform: scale(1.025); box-shadow: 0 0 0 0.4cqw rgba(30, 158, 90, 0.35), 0 1.6cqh 3cqh -1.6cqh rgba(0, 0, 0, 0.6); }
+.slide[data-tone='quiz'] .quiz-opt.is-correct .quiz-letter { color: #1E9E5A; }
+.slide[data-tone='quiz'] .quiz-opt.is-wrong { background: var(--q); filter: grayscale(0.4) brightness(0.8); animation: quiz-shake 420ms var(--ease-out); }
+.slide[data-tone='quiz'] .quiz-opt.is-wrong .quiz-letter, .slide[data-tone='quiz'] .quiz-opt.is-wrong .quiz-mark { color: #B8443B; border: 0; }
+.slide[data-tone='quiz'] .quiz-opt.is-wrong .quiz-mark { color: #fff; }
+.slide[data-tone='quiz'] .quiz-opt.is-dim { opacity: 0.32; }
+.slide[data-tone='quiz'] .quiz-result { background: #fff; color: var(--ink); border-left: 0.35cqw solid #1E9E5A; box-shadow: var(--lift-strong); }
+.slide[data-tone='quiz'] .quiz-result.is-no { border-left-color: #E0674F; }
+.slide[data-tone='quiz'] .quiz-result .quiz-verdict { color: #1E9E5A; font-size: 0.9cqw; }
+.slide[data-tone='quiz'] .quiz-result.is-no .quiz-verdict { color: #C2453B; }
+.slide[data-tone='quiz'] .quiz-result p { font-size: 1.2cqw; }
+@keyframes quiz-shake { 0%, 100% { transform: none; } 20% { transform: translateX(-0.6cqw); } 40% { transform: translateX(0.6cqw); } 60% { transform: translateX(-0.4cqw); } 80% { transform: translateX(0.3cqw); } }
+
+/* coffee button on dark slides */
+.stage[data-tone='dark'] .coffee-btn:not(.is-running) { color: #EEF2F8; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); }

@@ -9,7 +9,7 @@ export function mountQuiz(el, { question, code = '', options, answer, explain })
     <div class="quiz">
       <p class="quiz-q">${question}</p>
       ${code}
-      <div class="quiz-opts" role="group" aria-label="პასუხები">
+      <div class="quiz-opts" role="group" aria-label="answers">
         ${options.map((o, i) => `
           <button type="button" class="quiz-opt" data-i="${i}">
             <span class="quiz-letter mono">${LETTERS[i]}</span>
@@ -37,7 +37,7 @@ export function mountQuiz(el, { question, code = '', options, answer, explain })
     result.hidden = false;
     result.className = `quiz-result ${ok ? 'is-ok' : 'is-no'}`;
     result.innerHTML = `
-      <span class="quiz-verdict mono">${ok ? 'სწორია' : `არასწორია — სწორი პასუხია ${LETTERS[answer]}`}</span>
+      <span class="quiz-verdict mono">${ok ? 'Correct!' : `Not quite — the right answer is ${LETTERS[answer]}`}</span>
       <p>${explain}</p>`;
   }
 

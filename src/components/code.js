@@ -48,7 +48,7 @@ export function highlightLines(code, lang = 'jsx') {
  * @param {string} o.code
  * @param {string} [o.lang]   'jsx' | 'javascript' | 'markup' | 'css' | 'bash'
  * @param {string} [o.file]   file name shown in the tab
- * @param {string} [o.tag]    small note in the tab (e.g. "შემოკლებული")
+ * @param {string} [o.tag]    small note in the tab (e.g. "abridged")
  * @param {string|Array} [o.hl]   highlighted lines (changed / important)
  * @param {string|Array} [o.add]  added lines (+)
  * @param {string|Array} [o.bad]  buggy lines
