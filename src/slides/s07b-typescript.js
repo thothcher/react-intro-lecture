@@ -278,7 +278,7 @@ export default [
       };
       el.addEventListener('click', onClick);
       return {
-        next: () => { if (flow.current < 0) { flow.play(0); return true; } return flow.next(); },
+        next: () => { clearTimeout(start); if (flow.current < 0) { flow.play(0); return true; } return flow.next(); },
         unmount: () => { clearTimeout(start); el.removeEventListener('click', onClick); flow.unmount(); },
         flow,
         get scenario() { return flow.current; },
