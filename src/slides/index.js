@@ -9,11 +9,12 @@ import concepts from './s06c-concepts.js';
 import trials from './s06-trials.js';
 import moreTrials from './s06b-more.js';
 import ordeal from './s07-ordeal.js';
+import typescript from './s07b-typescript.js';
 import rendering from './s08a-rendering.js';
 import ret from './s08-return.js';
 import { meta } from './meta.js';
 
-const all = [...ordinary, ...call, ...refusal, ...mentor, ...threshold, ...jsx, ...concepts, ...trials, ...moreTrials, ...ordeal, ...rendering, ...ret];
+const all = [...ordinary, ...call, ...refusal, ...mentor, ...threshold, ...jsx, ...concepts, ...trials, ...moreTrials, ...ordeal, ...typescript, ...rendering, ...ret];
 
 const clock = (m) => `${Math.floor(m)}:${String(Math.round((m % 1) * 60)).padStart(2, '0')}`;
 let at = 0;

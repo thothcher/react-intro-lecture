@@ -3,6 +3,8 @@
 import Prism from 'prismjs';
 import 'prismjs/components/prism-jsx.js';
 import 'prismjs/components/prism-bash.js';
+import 'prismjs/components/prism-typescript.js';
+import 'prismjs/components/prism-tsx.js';
 
 const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 

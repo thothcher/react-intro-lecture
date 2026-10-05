@@ -49,7 +49,7 @@ const RECAP = [
   ['06', 'TRIALS · state', '#2B62C4', 'keep data in <span class="mono">useState</span> and rely on re-rendering; know what hooks are'],
   ['06', 'TRIALS · lists', '#2B62C4', 'turn API data into components with <span class="mono">.map()</span> — with a <span class="mono">key</span>'],
   ['06', 'TRIALS · 4–6', '#2B62C4', 'explain reconciliation and the virtual DOM, built-in XSS protection and listener cleanup'],
-  ['07', 'ORDEAL', '#B8332A', 'spot state-mutation and missing-<span class="mono">key</span> bugs'],
+  ['07', 'ORDEAL', '#B8332A', 'spot state-mutation and missing-<span class="mono">key</span> bugs; explain what TypeScript checks — and when'],
   ['08', 'RETURN', '#2E7D4F', 'compare CSR, SSR, SSG and ISR — where the HTML is built and what it means for SEO'],
 ];
 
@@ -153,7 +153,7 @@ export default [
       <div class="gs">
         <ol class="gs-steps">
           <li>${logoTile('node')}<div><h3>Install Node.js <small class="mono">LTS</small></h3><p>From <span class="mono">nodejs.org</span> — it brings <span class="mono">npm</span>. Check with <span class="mono">node -v</span>.</p></div></li>
-          <li>${logoTile('vite')}<div><h3>Create the project</h3><p><span class="mono">npm create vite@latest trattoria -- --template react</span></p></div></li>
+          <li>${logoTile('vite')}<div><h3>Create the project</h3><p><span class="mono">npm create vite@latest trattoria -- --template react</span><br><small>with TypeScript: <span class="mono">--template react-ts</span></small></p></div></li>
           <li>${logoTile('npm')}<div><h3>Install &amp; start</h3><p><span class="mono">npm install</span> once, <span class="mono">npm run dev</span> every time → <span class="mono">localhost:5173</span></p></div></li>
           <li><span class="logo-tile gs-ico">${icons.folder}</span><div><h3>Know the three files</h3><p><span class="mono">index.html</span> → <span class="mono">src/main.jsx</span> <small>(createRoot)</small> → <span class="mono">src/App.jsx</span> <small>(your code)</small></p></div></li>
           <li>${logoTile('react')}<div><h3>Components, props, state</h3><p>One function per piece of UI, data in through props, memory with <span class="mono">useState</span>.</p></div></li>

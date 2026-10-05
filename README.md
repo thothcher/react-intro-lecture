@@ -2,9 +2,9 @@
 
 **Present it online:** https://thothcher.github.io/react-intro-lecture/ (full screen with F, speaker notes with S)
 
-40 slides in English, structured as a Hero's Journey:
+42 slides in English, structured as a Hero's Journey:
 01 ORDINARY WORLD · 02 CALL · 03 REFUSAL · 04 MENTOR · 05 THRESHOLD · 06 TRIALS · 07 ORDEAL · 08 RETURN.
-About 74 minutes of theory (timings are computed per slide and shown in the speaker notes), then a 10-minute break and 45 minutes of practice.
+About 80 minutes of theory (timings are computed per slide and shown in the speaker notes), then a 10-minute break and 45 minutes of practice.
 
 Every stage has its own colour; code is shown in large, dark editor panels so it can be read from the back of the room;
 quizzes are a dark "game show"; the area around the 16:9 stage always takes the slide's colour, so there are no side bars.
@@ -35,7 +35,7 @@ npm run deploy     # build and publish dist/ to the gh-pages branch (GitHub Page
 | ? | keyboard help |
 
 `#/15` in the URL opens a given slide; `?nogl` previews the static fallback of the 3D monitor slide.
-Without WebGL, slide 35 keeps its steps panel and shows a short notice instead of the scene.
+Without WebGL, slide 37 keeps its steps panel and shows a short notice instead of the scene.
 
 Interactive slides:
 - **5**: → adds "About" to all 10 files, one at a time.
@@ -51,11 +51,13 @@ Interactive slides:
 - **30** (Trial 6, listeners, optional): Menu → Product a few times, then +; leaked listeners make one click count several times.
 - **7, 23, 25, 27, 31**: quizzes (1–4 or click).
 - **33**: → reveals bug 1, bug 2, then the fix; ← steps back.
-- **34**: CSR · SSR · SSG · ISR side by side.
-- **35**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML.
-- **37** (Vocabulary): a flashcard game — click a card to flip it, or press **R** for a random card in the spotlight, ask "what is it?", → flips it, → again puts it back. Shuffle / Reset.
-- **38**: Start your own React app — Node.js → Vite → `npm install` / `npm run dev` → the three files → components, props, state → `npm run build` and publish.
-- **39**: the students' task (Trattoria Lite): five timed steps, a "done when" checklist and bonus goals.
+- **34** (TypeScript): what it is and why React projects use it. → types `p.` in an editor (autocomplete), → a typo gets a red line while typing (the real tsc message), → the quick fix, → what the build does with the types.
+- **35** (Data on its way): the same three files in a JavaScript lane and a TypeScript lane; a value travels api → cart → CartSummary → screen. Four real-world cases — correct data, a price sent as text, a product not found (`null`), a typo in a prop. JavaScript shows the bug on the screen (wrong price, blank page, $0.00); the TypeScript type filters stop it with the real compiler message. → plays the next case.
+- **36**: CSR · SSR · SSG · ISR side by side.
+- **37**: animated rendering strategies in 3D: server with `dist/` and a database on the left, browser on the right, an SEO bot grading the first HTML.
+- **39** (Vocabulary): a flashcard game — click a card to flip it, or press **R** for a random card in the spotlight, ask "what is it?", → flips it, → again puts it back. Shuffle / Reset.
+- **40**: Start your own React app — Node.js → Vite → `npm install` / `npm run dev` → the three files → components, props, state → `npm run build` and publish.
+- **41**: the students' task (Trattoria Lite): five timed steps, a "done when" checklist and bonus goals.
 
 ## Structure
 

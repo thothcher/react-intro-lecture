@@ -2,7 +2,7 @@
 // Used where a picture of the tool explains more than its name: frameworks, tooling, vanilla vs React.
 import {
   siReact, siAngular, siVuedotjs, siSvelte, siNextdotjs, siJavascript, siVite,
-  siNodedotjs, siNpm, siAstro, siReactrouter, siGithub,
+  siNodedotjs, siNpm, siAstro, siReactrouter, siGithub, siTypescript,
 } from 'simple-icons';
 
 // [icon, colour on a light tile, tile background]
@@ -19,6 +19,7 @@ const BRANDS = {
   astro: [siAstro, '#FFFFFF', 'linear-gradient(135deg, #BC52EE, #FF5D01)'],
   router: [siReactrouter, '#F44250', '#121212'],
   github: [siGithub, '#FFFFFF', '#181717'],
+  ts: [siTypescript, '#FFFFFF', '#3178C6'],
 };
 
 /** Just the mark, in its brand colour (or `color`). */
